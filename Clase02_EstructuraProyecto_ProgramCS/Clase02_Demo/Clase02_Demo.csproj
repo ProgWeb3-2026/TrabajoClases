@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <!--
+  ╔══════════════════════════════════════════════════════════════════════════╗
+  ║  PROGRAMACIÓN WEB III — Clase 2                                         ║
+  ║  Tema 1.2: Estructura de Proyecto y Program.cs                          ║
+  ║  Ing. Victor Ortega Lijeron | Universidad Privada del Valle             ║
+  ╚══════════════════════════════════════════════════════════════════════════╝
+
+  PUNTOS A MOSTRAR EN CLASE:
+  ► Este archivo .csproj es el corazón del proyecto MSBuild.
+  ► Sdk="Microsoft.NET.Sdk.Web" activa todas las funciones web de ASP.NET Core.
+  ► TargetFramework define la versión de .NET que se usa.
+  ► Los PackageReference son las dependencias del proyecto (paquetes NuGet).
+  -->
+
+  <PropertyGroup>
+    <!-- ▶ MOSTRAR: TargetFramework define qué versión de .NET usar.
+         net10.0 requiere el SDK de .NET 10 instalado en la máquina. -->
+    <TargetFramework>net10.0</TargetFramework>
+
+    <!-- ▶ MOSTRAR: Nullable habilita el análisis de referencias nulas (C# 8+).
+         Ayuda a prevenir NullReferenceException en tiempo de compilación. -->
+    <Nullable>enable</Nullable>
+
+    <!-- ▶ MOSTRAR: ImplicitUsings=enable agrega automáticamente los 'using'
+         más comunes (System, System.Linq, Microsoft.AspNetCore.*, etc.)
+         Evita escribir using repetitivos en cada archivo. -->
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <!-- Nombre raíz del namespace por defecto -->
+    <RootNamespace>Clase02_Demo</RootNamespace>
+  </PropertyGroup>
+
+  <!--
+  PREGUNTA PARA LOS ESTUDIANTES:
+  ¿Qué pasa si cambias TargetFramework a net8.0?
+  → El proyecto compilará con las APIs de .NET 8, algunas APIs de .NET 10 no estarán disponibles.
+  -->
+
+</Project>

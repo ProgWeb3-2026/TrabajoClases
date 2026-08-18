@@ -1,0 +1,127 @@
+@page "{id:int}"
+@* Directiva @page con parámetro de ruta tipado.
+   {id:int} → el segmento es obligatorio y debe ser un entero.
+   Otros ejemplos:
+     {id:int?}       → opcional
+     {slug}          → string, sin tipo específico
+     {fecha:datetime} → debe ser una fecha válida
+   URL resultante: /Productos/Detalle/1, /Productos/Detalle/5, etc. *@
+@model Clase03_Demo.Pages.Productos.DetalleModel
+@{
+    ViewData["Title"] = $"Detalle — {Model.Producto.Nombre}";
+}
+
+<div class="hero-section">
+    <div class="container">
+        <span class="badge-tema">Tema 1.3.3 — Routing con parámetro de ruta</span>
+        <h1 class="display-5 fw-bold mt-2">@Model.Producto.Nombre</h1>
+        @* La URL de esta página es: /Productos/Detalle/@Model.Id *@
+        <p class="lead opacity-90">
+            URL activa: <code>/Productos/Detalle/@Model.Id</code> —
+            parámetro <code>id = @Model.Id</code> recibido desde la ruta.
+        </p>
+    </div>
+</div>
+
+<div class="container mt-4">
+
+    <div class="alert alert-info mb-4">
+        <strong>Routing con parámetro:</strong>
+        La directiva <code>@@page "{id:int}"</code> en la primera línea de este archivo
+        define que la URL debe incluir un número entero.
+        El PageModel recibe ese valor mediante <code>[BindProperty(SupportsGet=true)]</code>
+        o como parámetro en <code>OnGet(int id)</code>.
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <span class="badge bg-secondary mb-2">@Model.Producto.Categoria</span>
+                            <h3>@Model.Producto.Nombre</h3>
+                        </div>
+                        @if (Model.Producto.Disponible)
+                        {
+                            <span class="badge bg-success fs-6">✅ Disponible</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger fs-6">❌ Sin stock</span>
+                        }
+                    </div>
+
+                    <p class="text-muted">@Model.Producto.Descripcion</p>
+
+                    <table class="table table-sm table-borderless mt-3">
+                        <tr><th style="width:120px">ID:</th><td><code>#@Model.Producto.Id</code></td></tr>
+                        <tr><th>Categoría:</th><td>@Model.Producto.Categoria</td></tr>
+                        <tr><th>Precio:</th><td class="fs-5 fw-bold text-primary">@Model.Producto.Precio.ToString("C", new System.Globalization.CultureInfo("es-BO"))</td></tr>
+                        <tr><th>Stock:</th><td>@Model.Producto.Stock unidades</td></tr>
+                    </table>
+
+                    <div class="mt-4 d-flex gap-2">
+                        @* asp-page="/Productos/Index" genera la URL /Productos *@
+                        <a asp-page="/Productos/Index" class="btn btn-outline-secondary">
+                            ← Volver al catálogo
+                        </a>
+
+                        @* Navegar al producto anterior/siguiente si existen *@
+                        @if (Model.Id > 1)
+                        {
+                            @* asp-route-id pasa el parámetro de ruta *@
+                            <a asp-page="/Productos/Detalle"
+                               asp-route-id="@(Model.Id - 1)"
+                               class="btn btn-outline-primary">
+                                ← Anterior
+                            </a>
+                        }
+                        @if (Model.Id < 6)
+                        {
+                            <a asp-page="/Productos/Detalle"
+                               asp-route-id="@(Model.Id + 1)"
+                               class="btn btn-outline-primary">
+                                Siguiente →
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* Panel: explicación del routing de esta página *@
+        <div class="col-md-4">
+            <div class="card shadow-sm border-info">
+                <div class="card-header bg-info text-white">
+                    <h6 class="mb-0">Cómo se generan los links</h6>
+                </div>
+                <div class="card-body small">
+                    <p>En la vista del catálogo (<code>Index.cshtml</code>):</p>
+                    <pre class="bg-light p-2 rounded">
+&lt;a asp-page="/Productos/Detalle"
+   asp-route-id="@@producto.Id"&gt;
+    Ver detalle
+&lt;/a&gt;</pre>
+                    <p>Tag Helper <code>asp-route-id</code> genera:</p>
+                    <code>/Productos/Detalle/@Model.Id</code>
+                    <hr>
+                    <p>El PageModel recibe el valor:</p>
+                    <pre class="bg-light p-2 rounded">
+[BindProperty(SupportsGet=true)]
+public int Id { get; set; }
+
+public IActionResult OnGet()
+{
+    // Id = @Model.Id (recibido de la ruta)
+    Producto = datos.BuscarPorId(Id);
+    if (Producto is null)
+        return NotFound();
+    return Page();
+}</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

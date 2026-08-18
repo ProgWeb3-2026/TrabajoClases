@@ -1,0 +1,61 @@
+:root {
+    --prw3-primary: #1B3A6B;
+    --prw3-secondary: #2E6DB4;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.hero-section {
+    background: linear-gradient(135deg, var(--prw3-primary) 0%, var(--prw3-secondary) 100%);
+    color: white;
+    padding: 2.5rem 0 2rem;
+}
+.hero-section .badge-tema {
+    background-color: rgba(255,255,255,0.2);
+    color: white;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+}
+.hero-section h1, .hero-section .lead { color: white; }
+.hero-section .opacity-90 { opacity: 0.9; }
+
+/* Demo cards — estructura para cada bloque de demostración */
+.demo-card {
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.demo-header {
+    background: var(--prw3-primary);
+    color: white;
+    padding: 10px 16px;
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+}
+.demo-body {
+    padding: 16px;
+    background: white;
+}
+
+.card { border-radius: 10px; }
+.card-hover:hover { transform: translateY(-3px); transition: transform .2s; box-shadow: 0 4px 12px rgba(0,0,0,.15) !important; }
+
+pre {
+    background: #f4f4f4;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 0.82rem;
+    margin: 0;
+}
+
+code {
+    color: var(--bs-red);
+}
+
+.footer { background: #f1f1f1; }

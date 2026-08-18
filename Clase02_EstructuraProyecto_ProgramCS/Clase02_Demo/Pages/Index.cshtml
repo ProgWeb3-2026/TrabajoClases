@@ -1,0 +1,219 @@
+@* ╔══════════════════════════════════════════════════════════════════════════╗ *@
+@* ║  PROGRAMACIÓN WEB III — Clase 2                                         ║ *@
+@* ║  Tema 1.2: Index.cshtml — Vista principal                              ║ *@
+@* ╚══════════════════════════════════════════════════════════════════════════╝ *@
+
+@* ▶ MOSTRAR: @page es OBLIGATORIO. Convierte este archivo en una página Razor.
+   Sin @page, ASP.NET Core lo trata como una vista parcial, no como una página enrutable. *@
+@page
+
+@* ▶ MOSTRAR: @model declara el tipo del PageModel asociado.
+   Esto habilita IntelliSense tipado: @Model.InfoApp.Nombre funciona con autocompletado. *@
+@model Clase02_Demo.Pages.IndexModel
+
+@* ▶ MOSTRAR: ViewData["Title"] establece el título de la pestaña del navegador.
+   El _Layout.cshtml usa @ViewData["Title"] en el <title> del HTML. *@
+@{
+    ViewData["Title"] = "Clase 2 — Estructura de Proyecto y Program.cs";
+}
+
+@* ─────────────────────────────────────────────────────────────────────────── *@
+@* SECCIÓN HERO *@
+@* ─────────────────────────────────────────────────────────────────────────── *@
+<div class="hero-section">
+    <div class="container">
+        <span class="badge-clase">Clase 2 | Tema 1.2</span>
+        <h1 class="display-5 fw-bold mb-3">Estructura de Proyecto y <code>Program.cs</code></h1>
+        <p class="lead mb-2">@Model.NombreCompleto</p>
+        <p class="text-muted">
+            <i class="bi bi-geo-alt"></i> Entorno activo:
+            @* ▶ MOSTRAR: Condicional Razor con @if. Muestra badge según el entorno. *@
+            @if (Model.InfoServidor.Entorno == "Development")
+            {
+                <span class="badge bg-warning text-dark">⚙️ Development</span>
+            }
+            else
+            {
+                <span class="badge bg-success">🚀 @Model.InfoServidor.Entorno</span>
+            }
+        </p>
+    </div>
+</div>
+
+<div class="container mt-4">
+
+    @* ─────────────────────────────────────────────────────────────────────── *@
+    @* TARJETA 1: INFORMACIÓN DE LA APP (desde appsettings.json) *@
+    @* ─────────────────────────────────────────────────────────────────────── *@
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">📋 Información de la Aplicación — <code>AppInfo</code></h5>
+            <small>Leída desde <code>appsettings.json</code> → sección <code>"AppInfo"</code> → mapeada con <code>IOptions&lt;AppInfo&gt;</code></small>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                @* ▶ MOSTRAR: Acceso tipado al modelo con @Model.InfoApp.Propiedad *@
+                <div class="col-md-6">
+                    <table class="table table-sm table-borderless">
+                        <tr><th style="width:140px">Nombre:</th><td><strong>@Model.InfoApp.Nombre</strong></td></tr>
+                        <tr><th>Versión:</th><td><span class="badge bg-secondary">@Model.InfoApp.Version</span></td></tr>
+                        <tr><th>Autor:</th><td>@Model.InfoApp.Autor</td></tr>
+                        <tr><th>Institución:</th><td>@Model.InfoApp.Institucion</td></tr>
+                        <tr><th>Gestión:</th><td>@Model.InfoApp.Gestion</td></tr>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <div class="alert alert-info">
+                        <strong>Descripción:</strong><br>@Model.InfoApp.Descripcion
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* ─────────────────────────────────────────────────────────────────────── *@
+    @* TARJETA 2: INFORMACIÓN DEL SERVIDOR *@
+    @* ─────────────────────────────────────────────────────────────────────── *@
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0">🖥️ Información del Servidor — <code>IWebHostEnvironment</code></h5>
+            <small>Datos obtenidos desde el servicio inyectado <code>IAppInfoService</code></small>
+        </div>
+        <div class="card-body">
+            <table class="table table-sm table-striped">
+                <tr><th style="width:200px">Nombre de máquina:</th><td><code>@Model.InfoServidor.NombreMaquina</code></td></tr>
+                <tr><th>Sistema operativo:</th><td><code>@Model.InfoServidor.SistemaOperativo</code></td></tr>
+                <tr><th>Versión .NET:</th><td><code>@Model.InfoServidor.VersionDotNet</code></td></tr>
+                <tr><th>Entorno:</th><td><code>@Model.InfoServidor.Entorno</code></td></tr>
+                <tr><th>Hora del servidor:</th><td><code>@Model.InfoServidor.HoraServidor.ToString("dd/MM/yyyy HH:mm:ss")</code></td></tr>
+            </table>
+        </div>
+    </div>
+
+    @* ─────────────────────────────────────────────────────────────────────── *@
+    @* TARJETA 3: CONFIGURACIÓN RAW (acceso directo con IConfiguration) *@
+    @* Solo visible si el Feature Flag está activo *@
+    @* ─────────────────────────────────────────────────────────────────────── *@
+    @* ▶ MOSTRAR: Feature flag controlando qué se muestra *@
+    @if (Model.Features.MostrarConfiguracion)
+    {
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">⚙️ Acceso directo con <code>IConfiguration["clave"]</code></h5>
+                <small>Feature habilitada: <code>Features:MostrarConfiguracion = true</code> en appsettings.json</small>
+            </div>
+            <div class="card-body">
+                <p class="text-muted small">
+                    <strong>▶ DEMO DOCENTE:</strong> Cambiar <code>"MostrarConfiguracion": false</code> en appsettings.json,
+                    guardar, y refrescar la página. Esta sección desaparece SIN recompilar.
+                </p>
+                <table class="table table-sm table-bordered font-monospace">
+                    <thead class="table-light">
+                        <tr><th>Clave</th><th>Valor</th></tr>
+                    </thead>
+                    <tbody>
+                        @* ▶ MOSTRAR: @foreach en Razor itera colecciones *@
+                        @foreach (var item in Model.ConfiguracionDemo)
+                        {
+                            <tr>
+                                <td class="text-primary">@item.Key</td>
+                                <td>@item.Value</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+    @* ─────────────────────────────────────────────────────────────────────── *@
+    @* TARJETA 4: EL PIPELINE DE MIDDLEWARE (diagrama visual) *@
+    @* ─────────────────────────────────────────────────────────────────────── *@
+    @if (Model.Features.MostrarPipelineMiddleware)
+    {
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">🔄 Pipeline de Middleware — Flujo de una Petición HTTP</h5>
+                <small>Configurado en <code>Program.cs</code> con <code>app.Use*()</code></small>
+            </div>
+            <div class="card-body">
+                <p class="text-muted small mb-3">
+                    Cada petición HTTP pasa por estos componentes <strong>en orden</strong>, de arriba hacia abajo (petición)
+                    y de abajo hacia arriba (respuesta):
+                </p>
+                <div class="pipeline-container">
+                    <div class="pipeline-step step-browser">🌐 Navegador (Browser)</div>
+                    <div class="pipeline-arrow">↕ Petición / Respuesta HTTP</div>
+                    <div class="pipeline-step step-kestrel">⚡ Kestrel (Servidor Web)</div>
+                    <div class="pipeline-arrow">↓</div>
+                    <div class="pipeline-step step-mw">UseExceptionHandler / UseDeveloperExceptionPage</div>
+                    <div class="pipeline-arrow">↓</div>
+                    <div class="pipeline-step step-mw">UseHttpsRedirection</div>
+                    <div class="pipeline-arrow">↓</div>
+                    <div class="pipeline-step step-mw">UseStaticFiles → <small>Sirve wwwroot/</small></div>
+                    <div class="pipeline-arrow">↓</div>
+                    <div class="pipeline-step step-mw">UseRouting → <small>Analiza la URL</small></div>
+                    <div class="pipeline-arrow">↓</div>
+                    <div class="pipeline-step step-mw">UseAuthentication / UseAuthorization</div>
+                    <div class="pipeline-arrow">↓</div>
+                    <div class="pipeline-step step-endpoint">MapRazorPages / MapControllers → <strong>Tu página .cshtml</strong></div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @* ─────────────────────────────────────────────────────────────────────── *@
+    @* ESTRUCTURA DE ARCHIVOS DEL PROYECTO *@
+    @* ─────────────────────────────────────────────────────────────────────── *@
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header" style="background:#1B3A6B; color:white">
+            <h5 class="mb-0">📁 Estructura del Proyecto ASP.NET Core</h5>
+            <small>Convenciones de carpetas y archivos</small>
+        </div>
+        <div class="card-body">
+            <pre class="bg-dark text-light p-3 rounded small">
+Clase02_Demo/
+├── <span class="text-warning">Clase02_Demo.csproj</span>    ← Configuración MSBuild, paquetes NuGet, target framework
+├── <span class="text-success">Program.cs</span>             ← Punto de entrada: servicios + pipeline middleware
+├── <span class="text-success">appsettings.json</span>       ← Configuración base (todas las env)
+├── <span class="text-info">appsettings.Development.json</span>  ← Sobreescribe para Development
+├── <span class="text-primary">Models/</span>                ← Clases de dominio y DTOs
+│   └── AppInfo.cs
+├── <span class="text-primary">Services/</span>              ← Lógica de negocio e interfaces
+│   └── AppInfoService.cs
+├── <span class="text-primary">Pages/</span>                 ← Razor Pages (.cshtml + .cshtml.cs)
+│   ├── Index.cshtml          ← Vista: HTML + Razor
+│   ├── Index.cshtml.cs       ← PageModel: lógica de la página
+│   └── Shared/
+│       ├── _Layout.cshtml    ← Plantilla HTML compartida (header, nav, footer)
+│       ├── _ViewStart.cshtml ← Define el layout por defecto
+│       └── _ViewImports.cshtml ← using y TagHelpers globales
+└── <span class="text-primary">wwwroot/</span>               ← Archivos ESTÁTICOS servidos directamente
+    └── css/
+        └── site.css
+            </pre>
+        </div>
+    </div>
+
+</div>
+
+@* ─────────────────────────────────────────────────────────────────────────── *@
+@* SECCIÓN DE SCRIPTS — inyectada en el _Layout.cshtml *@
+@* ▶ MOSTRAR: @section permite inyectar contenido en secciones del Layout *@
+@section Scripts {
+    <script>
+        // ▶ MOSTRAR: JavaScript del lado del cliente (no tiene acceso a C#)
+        console.log('Clase 2 — PRW3: Estructura de proyecto y Program.cs cargados.');
+        console.log('Entorno:', '@Model.InfoServidor.Entorno');
+
+        // Demo: actualizar la hora del cliente
+        document.addEventListener('DOMContentLoaded', function() {
+            const reloj = document.getElementById('reloj-cliente');
+            if (reloj) {
+                setInterval(() => {
+                    reloj.textContent = new Date().toLocaleTimeString('es-BO');
+                }, 1000);
+            }
+        });
+    </script>
+}

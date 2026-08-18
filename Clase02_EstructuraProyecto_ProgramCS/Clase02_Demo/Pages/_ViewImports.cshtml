@@ -1,0 +1,12 @@
+@* ▶ MOSTRAR: _ViewImports.cshtml agrega directivas que aplican a TODAS las vistas
+   en esta carpeta y subcarpetas. Evita repetir @using en cada archivo .cshtml. *@
+
+@* Importar el namespace de los modelos del proyecto *@
+@using Clase02_Demo
+@using Clase02_Demo.Models
+@using Clase02_Demo.Services
+
+@* ▶ MOSTRAR: @addTagHelper habilita los Tag Helpers de ASP.NET Core.
+   Sin esta línea: asp-page, asp-for, asp-action, etc. NO funcionan.
+   El * significa "todos los Tag Helpers", Microsoft.AspNetCore.Mvc.TagHelpers es el assembly. *@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers

@@ -1,0 +1,93 @@
+/*
+ * PROGRAMACIÓN WEB III — Clase 2
+ * site.css — Estilos personalizados
+ *
+ * ▶ MOSTRAR: Este archivo está en wwwroot/css/site.css
+ *   wwwroot/ es la carpeta raíz para archivos estáticos.
+ *   UseStaticFiles() en Program.cs lo sirve directamente sin pasar por los controllers.
+ *   Se referencia con ~/ en las vistas: <link href="~/css/site.css" />
+ *   El ~ significa la raíz del servidor (wwwroot/).
+ */
+
+/* ── Variables CSS ─────────────────────────────────────────────────────────── */
+:root {
+    --prw3-primary: #1B3A6B;    /* Color principal PRW3 */
+    --prw3-secondary: #2E6DB4;  /* Color secundario */
+    --prw3-accent: #C0392B;     /* Acento */
+}
+
+/* ── Base ──────────────────────────────────────────────────────────────────── */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* ── Hero Section ──────────────────────────────────────────────────────────── */
+.hero-section {
+    background: linear-gradient(135deg, var(--prw3-primary) 0%, var(--prw3-secondary) 100%);
+    color: white;
+    padding: 2.5rem 0 2rem;
+    margin-bottom: 0;
+}
+
+.hero-section .badge-clase {
+    background-color: rgba(255,255,255,0.2);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+}
+
+.hero-section h1 { color: white; }
+.hero-section .lead { color: rgba(255,255,255,0.9); }
+.hero-section .text-muted { color: rgba(255,255,255,0.7) !important; }
+
+/* ── Pipeline Middleware ────────────────────────────────────────────────────── */
+.pipeline-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.pipeline-step {
+    width: 100%;
+    text-align: center;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.step-browser  { background: #d1ecf1; color: #0c5460; border: 2px solid #bee5eb; }
+.step-kestrel  { background: #fff3cd; color: #856404; border: 2px solid #ffc107; }
+.step-mw       { background: #e2e3e5; color: #383d41; border: 2px solid #ced4da; }
+.step-endpoint { background: #d4edda; color: #155724; border: 2px solid #28a745; font-weight: bold; }
+
+.pipeline-arrow {
+    color: #666;
+    font-size: 1.2rem;
+    padding: 2px 0;
+}
+
+/* ── Cards ─────────────────────────────────────────────────────────────────── */
+.card { border: none; border-radius: 10px; }
+.card-header { border-radius: 10px 10px 0 0 !important; }
+
+/* ── Code blocks ───────────────────────────────────────────────────────────── */
+pre {
+    border-radius: 8px;
+    font-size: 0.82rem;
+    line-height: 1.5;
+}
+
+code { color: var(--prw3-secondary); }
+
+/* ── Footer ────────────────────────────────────────────────────────────────── */
+.footer { background: #f1f1f1; }
