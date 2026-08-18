@@ -1,0 +1,26 @@
+@*
+    _TarjetaNoticia.cshtml — Vista Parcial con modelo tipado.
+
+    Recibe un objeto Noticia y renderiza una tarjeta Bootstrap.
+    Se incluye con modelo explícito:
+      <partial name="_TarjetaNoticia" model="@item" />
+
+    Ventaja: encapsula la UI de una tarjeta en un solo lugar.
+    Si cambia el diseño, solo se edita aquí y aplica en todas las páginas.
+*@
+@model Clase04_Demo.Models.Noticia
+
+<div class="card h-100 shadow-sm @(Model.Destacada ? "border-warning" : "")">
+    @if (Model.Destacada)
+    {
+        <div class="card-header bg-warning text-dark small fw-bold">⭐ Destacada</div>
+    }
+    <div class="card-body">
+        <span class="badge bg-secondary mb-2">@Model.Categoria</span>
+        <h6 class="card-title">@Model.Titulo</h6>
+        <p class="card-text text-muted small">@Model.Resumen</p>
+    </div>
+    <div class="card-footer text-muted small bg-transparent">
+        @Model.Fecha.ToString("dd MMM yyyy")
+    </div>
+</div>

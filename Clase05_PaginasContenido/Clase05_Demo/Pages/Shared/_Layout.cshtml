@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] | PRW3 Clase 5</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    @await RenderSectionAsync("Estilos", required: false)
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1B3A6B;">
+        <div class="container">
+            <a class="navbar-brand fw-bold" asp-page="/Index">⚡ PRW3 — Clase 5</a>
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navMain">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMain">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" asp-page="/Index">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-page="/Demos/Handlers">Handlers y IActionResult</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-page="/Demos/FormBinding">BindProperty + ModelState</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-page="/Demos/TempData">TempData</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pb-5">
+        @RenderBody()
+    </main>
+
+    <footer class="border-top py-3 bg-light">
+        <div class="container text-center text-muted small">
+            Programación Web III — Universidad Privada del Valle | Gestión 2026
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

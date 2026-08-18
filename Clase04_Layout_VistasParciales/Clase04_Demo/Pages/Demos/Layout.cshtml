@@ -1,0 +1,139 @@
+@page
+@model Clase04_Demo.Pages.Demos.LayoutModel
+@{
+    // ViewData["Title"] define el <title> del navegador desde la página hija.
+    // El layout lo recibe y lo inserta en: <title>@ViewData["Title"] | ...</title>
+    ViewData["Title"] = "Demo _Layout.cshtml";
+}
+
+@*
+    La sección "Estilos" está definida en el layout como opcional.
+    Si esta página declara @section Estilos { ... }, el layout la inyecta en el <head>.
+    Útil para CSS específico de una sola página sin contaminar el CSS global.
+*@
+@section Estilos {
+    <style>
+        .slot-box { border: 2px dashed #0d6efd; border-radius: 8px; padding: 1rem; background: #f0f4ff; }
+        .layout-diagram { font-family: monospace; font-size: 0.85rem; line-height: 1.7; }
+    </style>
+}
+
+<div class="bg-primary text-white py-4 mb-4">
+    <div class="container">
+        <span class="badge bg-light text-dark mb-2">Tema 1.4.1</span>
+        <h1 class="display-5 fw-bold">_Layout.cshtml</h1>
+        <p class="lead opacity-90">La plantilla maestra que envuelve todas las páginas.</p>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0">¿Cómo funciona el Layout?</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>El layout es el <strong>shell HTML completo</strong> (DOCTYPE, head, body)
+                       compartido por todas las páginas. Cada página hija solo escribe su contenido
+                       específico — el layout lo envuelve automáticamente.</p>
+
+                    <div class="alert alert-info">
+                        <strong>Flujo de renderizado:</strong><br />
+                        1. Razor ejecuta la página hija (.cshtml)<br />
+                        2. Detecta que usa un layout (por <code>_ViewStart.cshtml</code>)<br />
+                        3. Ejecuta el layout<br />
+                        4. Inserta el contenido de la página donde está <code>@@RenderBody()</code>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="layout-diagram">
+<pre class="bg-light p-3 rounded">
+_Layout.cshtml
+┌─────────────────────────┐
+│ &lt;!DOCTYPE html&gt;         │
+│ &lt;head&gt;                  │
+│   &lt;title&gt;               │
+│     @@ViewData["Title"] │  ← de la página hija
+│   &lt;/title&gt;              │
+│   @@RenderSection(       │
+│     "Estilos", false)   │  ← opcional
+│ &lt;/head&gt;                 │
+│ &lt;body&gt;                  │
+│   &lt;partial _NavBar /&gt;   │  ← parcial
+│   ┌───────────────────┐ │
+│   │  @@RenderBody()   │ │  ← AQUÍ va esta página
+│   └───────────────────┘ │
+│   &lt;partial _Footer /&gt;   │
+│   @@RenderSection(       │
+│     "Scripts", false)   │  ← opcional
+│ &lt;/body&gt;                 │
+└─────────────────────────┘
+</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card h-100 border-primary">
+                <div class="card-header bg-primary text-white">RenderBody()</div>
+                <div class="card-body small">
+                    <p><strong>Obligatorio.</strong> Solo puede aparecer una vez en el layout.</p>
+                    <p>Es el punto donde se inyecta todo el HTML de la página hija.</p>
+                    <code>@@RenderBody()</code>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-success">
+                <div class="card-header bg-success text-white">RenderSection()</div>
+                <div class="card-body small">
+                    <p>Define <strong>zonas nombradas</strong> donde las páginas pueden inyectar contenido.</p>
+                    <p><code>required: false</code> → opcional. <code>required: true</code> → la página DEBE declararlo.</p>
+                    <code>@@await RenderSectionAsync("Scripts", required: false)</code>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-warning">
+                <div class="card-header bg-warning text-dark">ViewData["Title"]</div>
+                <div class="card-body small">
+                    <p>Diccionario compartido entre página y layout.</p>
+                    <p>La página escribe: <code>ViewData["Title"] = "Mi Página";</code></p>
+                    <p>El layout lee: <code>&lt;title&gt;@@ViewData["Title"]&lt;/title&gt;</code></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+            <h6 class="mb-0">Esta página usa la sección <code>@@section Estilos</code></h6>
+        </div>
+        <div class="card-body">
+            <div class="slot-box">
+                Este recuadro azul punteado usa un estilo definido en
+                <code>@@section Estilos {{ ... }}</code> al inicio de esta página.
+                El CSS se inyectó en el <code>&lt;head&gt;</code> del layout —
+                solo afecta a esta página.
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@*
+    La sección "Scripts" también está disponible.
+    Esta página la usa para demostrar el funcionamiento.
+*@
+@section Scripts {
+    <script>
+        // Este script solo existe en la página Layout.cshtml.
+        // Se inyectó mediante @@section Scripts { } al final del <body>.
+        console.log("Scripts de Layout.cshtml inyectados correctamente.");
+    </script>
+}

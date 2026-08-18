@@ -1,0 +1,134 @@
+@page
+@model Clase04_Demo.Pages.Demos.ViewStartModel
+@{
+    ViewData["Title"] = "Demo _ViewStart y _ViewImports";
+}
+
+<div class="bg-success text-white py-4 mb-4">
+    <div class="container">
+        <span class="badge bg-light text-dark mb-2">Tema 1.4.2</span>
+        <h1 class="display-5 fw-bold">_ViewStart.cshtml y _ViewImports.cshtml</h1>
+        <p class="lead opacity-90">Archivos de configuración automática para todas las vistas.</p>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="row g-4 mb-4">
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm border-success">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">_ViewStart.cshtml</h5>
+                </div>
+                <div class="card-body">
+                    <p>
+                        Se ejecuta <strong>antes de cada vista</strong> en su carpeta y subcarpetas.
+                        Su uso principal es definir el layout por defecto para evitar repetirlo en cada página.
+                    </p>
+                    <pre class="bg-light p-3 rounded small">
+@* Pages/_ViewStart.cshtml *@
+@@{
+    Layout = "_Layout";
+}
+</pre>
+                    <div class="alert alert-warning small mt-2 mb-0">
+                        <strong>Sobreescribir:</strong> Una página puede anular el layout con
+                        <code>Layout = null;</code> o <code>Layout = "_OtroLayout";</code>
+                        en su propio bloque <code>@@{ }</code>.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm border-info">
+                <div class="card-header bg-info text-dark">
+                    <h5 class="mb-0">_ViewImports.cshtml</h5>
+                </div>
+                <div class="card-body">
+                    <p>
+                        Contiene directivas que se aplican a <strong>todas las vistas</strong>
+                        en su carpeta y subcarpetas. Evita repetir <code>@@using</code>
+                        y <code>@@addTagHelper</code> en cada archivo.
+                    </p>
+                    <pre class="bg-light p-3 rounded small">
+@* Pages/_ViewImports.cshtml *@
+@@using Clase04_Demo
+@@using Clase04_Demo.Models
+@@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+</pre>
+                    <div class="alert alert-info small mt-2 mb-0">
+                        <strong>@@addTagHelper:</strong> Habilita todos los Tag Helpers de ASP.NET Core.
+                        Sin esta línea, <code>asp-page</code>, <code>asp-for</code>,
+                        <code>asp-route-*</code> no funcionan.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+            <h6 class="mb-0">Jerarquía de archivos de configuración</h6>
+        </div>
+        <div class="card-body">
+            <pre class="bg-light p-3 rounded small">
+Pages/
+├── _ViewImports.cshtml   ← aplica a TODAS las páginas bajo /Pages/
+├── _ViewStart.cshtml     ← aplica a TODAS las páginas bajo /Pages/
+├── Index.cshtml          ← hereda layout de _ViewStart
+├── Demos/
+│   ├── Layout.cshtml     ← también hereda de Pages/_ViewStart.cshtml
+│   └── ViewStart.cshtml  ← también hereda
+│   (Se puede tener un _ViewImports.cshtml adicional aquí para
+│    directivas específicas de la subcarpeta Demos/)
+└── Shared/
+    ├── _Layout.cshtml    ← no es una página, es el layout
+    ├── _NavBar.cshtml    ← parcial global
+    └── _Footer.cshtml   ← parcial global
+</pre>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-secondary text-white">
+            <h6 class="mb-0">Tag Helpers habilitados por _ViewImports</h6>
+        </div>
+        <div class="card-body">
+            <p>Gracias a <code>@@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers</code>,
+               esta página puede usar:</p>
+            <table class="table table-sm table-bordered">
+                <thead class="table-dark">
+                    <tr><th>Tag Helper</th><th>Genera</th><th>Ejemplo</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>asp-page</code></td>
+                        <td>URL de la página Razor</td>
+                        <td><code>&lt;a asp-page="/Index"&gt;</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>asp-route-*</code></td>
+                        <td>Parámetros de ruta</td>
+                        <td><code>asp-route-id="5"</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>asp-for</code></td>
+                        <td>Enlace con propiedad del modelo</td>
+                        <td><code>&lt;input asp-for="Nombre" /&gt;</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>asp-validation-for</code></td>
+                        <td>Mensaje de error de validación</td>
+                        <td><code>&lt;span asp-validation-for="Email"&gt;</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>asp-action / asp-controller</code></td>
+                        <td>URL de acción MVC</td>
+                        <td><code>&lt;a asp-action="Index"&gt;</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

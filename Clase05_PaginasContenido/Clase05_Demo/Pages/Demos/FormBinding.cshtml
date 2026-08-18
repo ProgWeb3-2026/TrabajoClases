@@ -1,0 +1,162 @@
+@page
+@model Clase05_Demo.Pages.Demos.FormBindingModel
+@{
+    ViewData["Title"] = "[BindProperty] + ModelState";
+}
+
+<div class="bg-success text-white py-4 mb-4">
+    <div class="container">
+        <span class="badge bg-light text-dark mb-2">Tema 1.5.1</span>
+        <h1 class="display-5 fw-bold">[BindProperty] y ModelState</h1>
+        <p class="lead opacity-90">
+            Binding automático de formularios y validación con DataAnnotations.
+        </p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row g-4">
+
+        <div class="col-md-6">
+
+            @* Alerta de éxito tras la redirección PRG *@
+            @if (TempData["MensajeOk"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show">
+                    ✅ @TempData["MensajeOk"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-dark text-white">
+                    Formulario de Registro — Demo
+                </div>
+                <div class="card-body">
+                    @*
+                        method="post" → HTTP POST → ejecuta OnPost() en el PageModel.
+                        Razor Pages inyecta el antiforgery token automáticamente.
+                    *@
+                    <form method="post">
+                        <div class="mb-3">
+                            @*
+                                asp-for="Formulario.Nombre" genera:
+                                  name="Formulario.Nombre"  → [BindProperty] lo captura
+                                  value con el valor actual → conserva lo escrito si falla validación
+                            *@
+                            <label asp-for="Formulario.Nombre" class="form-label fw-semibold"></label>
+                            <input asp-for="Formulario.Nombre" class="form-control" placeholder="Tu nombre" />
+                            @*
+                                asp-validation-for muestra el error de ModelState para esta propiedad.
+                                Vacío si la validación pasó, con mensaje si falló.
+                            *@
+                            <span asp-validation-for="Formulario.Nombre" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Formulario.Email" class="form-label fw-semibold"></label>
+                            <input asp-for="Formulario.Email" class="form-control" placeholder="correo@@dominio.com" />
+                            <span asp-validation-for="Formulario.Email" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Formulario.Carrera" class="form-label fw-semibold"></label>
+                            <select asp-for="Formulario.Carrera" class="form-select">
+                                <option value="">— Seleccione una carrera —</option>
+                                <option value="Ingeniería de Sistemas">Ingeniería de Sistemas</option>
+                                <option value="Ingeniería Industrial">Ingeniería Industrial</option>
+                                <option value="Administración de Empresas">Administración de Empresas</option>
+                            </select>
+                            <span asp-validation-for="Formulario.Carrera" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Formulario.Semestre" class="form-label fw-semibold"></label>
+                            <input asp-for="Formulario.Semestre" type="number" class="form-control" min="1" max="10" />
+                            <span asp-validation-for="Formulario.Semestre" class="text-danger small"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100">Registrar</button>
+                    </form>
+                </div>
+            </div>
+
+            @* Registros en memoria de esta sesión *@
+            @if (Clase05_Demo.Pages.Demos.FormBindingModel.Registros.Count > 0)
+            {
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        <small>Registros recibidos (@Clase05_Demo.Pages.Demos.FormBindingModel.Registros.Count)</small>
+                    </div>
+                    <div class="list-group list-group-flush small">
+                        @foreach (var r in Clase05_Demo.Pages.Demos.FormBindingModel.Registros)
+                        {
+                            <div class="list-group-item">
+                                <strong>@r.Nombre</strong> — @r.Email
+                                <span class="text-muted ms-2">@r.Carrera, Sem. @r.Semestre</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow-sm mb-3">
+                <div class="card-header bg-warning text-dark">
+                    <h6 class="mb-0">¿Cómo funciona [BindProperty]?</h6>
+                </div>
+                <div class="card-body small">
+                    <pre class="bg-light p-2 rounded">
+// En el PageModel:
+[BindProperty]
+public RegistroForm Formulario { get; set; } = new();
+
+// En la vista:
+&lt;input asp-for="Formulario.Nombre" /&gt;
+// genera: name="Formulario.Nombre"
+
+// Al hacer POST, Razor Pages popula automáticamente:
+// Formulario.Nombre  = valor del campo
+// Formulario.Email   = valor del campo
+// ...
+</pre>
+                    <div class="alert alert-info mb-0 mt-2 small">
+                        Sin <code>[BindProperty]</code>, el campo queda vacío en <code>OnPost()</code>.
+                        Sin <code>asp-for</code>, el <code>name</code> no coincide y el binding falla.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-dark">
+                    <h6 class="mb-0">DataAnnotations → ModelState</h6>
+                </div>
+                <div class="card-body small">
+                    <p>Las anotaciones del modelo <code>RegistroForm</code>:</p>
+                    <pre class="bg-light p-2 rounded">
+[Required(ErrorMessage = "Obligatorio.")]
+[StringLength(100, MinimumLength = 2)]
+public string Nombre { get; set; }
+
+[Required]
+[EmailAddress(ErrorMessage = "Email inválido.")]
+public string Email { get; set; }
+
+[Range(1, 10)]
+public int Semestre { get; set; }
+</pre>
+                    <p>Se verifican con <code>ModelState.IsValid</code> en <code>OnPost()</code>.
+                       Los errores aparecen en <code>&lt;span asp-validation-for&gt;</code>.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"></script>
+}

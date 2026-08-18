@@ -1,0 +1,39 @@
+@*
+    _NavBar.cshtml — Vista Parcial de navegación global.
+
+    Convención: el nombre empieza con _ para indicar que es una parcial,
+    no una página enrutable (no tiene directiva @page).
+
+    Se incluye en el layout con: <partial name="_NavBar" />
+    También se puede incluir con: @await Html.PartialAsync("_NavBar")
+*@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1B3A6B;">
+    <div class="container">
+        <a class="navbar-brand fw-bold" asp-page="/Index">
+            ⚡ PRW3 — Clase 4
+        </a>
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navMain">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMain">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" asp-page="/Index">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-page="/Demos/Layout">_Layout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-page="/Demos/ViewStart">_ViewStart / _ViewImports</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-page="/Demos/Parciales">Vistas Parciales</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-page="/Demos/SinLayout">Sin Layout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

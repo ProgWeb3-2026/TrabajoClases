@@ -1,0 +1,113 @@
+@page
+@model Clase04_Demo.Pages.Demos.ParcialesModel
+@{
+    ViewData["Title"] = "Demo Vistas Parciales";
+}
+
+<div class="py-4 mb-4 text-white" style="background-color:#6f42c1;">
+    <div class="container">
+        <span class="badge bg-light text-dark mb-2">Tema 1.4.3</span>
+        <h1 class="display-5 fw-bold">Vistas Parciales</h1>
+        <p class="lead opacity-90">Fragmentos de UI reutilizables incluidos desde múltiples páginas.</p>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0">¿Qué es una Vista Parcial?</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>
+                        Una vista parcial es un archivo <code>.cshtml</code> que <strong>no tiene</strong>
+                        la directiva <code>@@page</code> (no es una página enrutable).
+                        Encapsula un fragmento de HTML reutilizable que se incluye desde otras páginas o layouts.
+                    </p>
+                    <ul>
+                        <li>Nombre empieza con <code>_</code> por convención</li>
+                        <li>Ubicación: <code>Pages/Shared/</code> (global) o misma carpeta (local)</li>
+                        <li>Puede recibir un modelo propio con <code>model="@@objeto"</code></li>
+                        <li>No tiene PageModel — lógica mínima o ninguna</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Formas de incluir una parcial:</strong></p>
+                    <pre class="bg-light p-3 rounded small">
+&lt;!-- Tag Helper (recomendado) --&gt;
+&lt;partial name="_NavBar" /&gt;
+
+&lt;!-- Con modelo tipado --&gt;
+&lt;partial name="_TarjetaNoticia"
+         model="@@item" /&gt;
+
+&lt;!-- Método Html (asíncrono) --&gt;
+@@await Html.PartialAsync("_NavBar")
+
+&lt;!-- Con ViewData adicional --&gt;
+&lt;partial name="_NavBar"
+         view-data="@@miViewData" /&gt;
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*
+        Aquí se usa la parcial _TarjetaNoticia con modelo tipado.
+        Cada iteración pasa un objeto Noticia diferente.
+        La parcial define cómo renderizar UNA noticia — el foreach controla cuántas.
+    *@
+    <h5 class="mb-3">Noticias — renderizadas con <code>&lt;partial name="_TarjetaNoticia" model="@@item" /&gt;</code></h5>
+    <div class="row g-3 mb-4">
+        @foreach (var item in Model.Noticias)
+        {
+            <div class="col-md-3">
+                <partial name="_TarjetaNoticia" model="@item" />
+            </div>
+        }
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header">
+            <h6 class="mb-0">Partial View vs ViewComponent</h6>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-bordered mb-0">
+                <thead class="table-dark">
+                    <tr><th>Aspecto</th><th>Partial View</th><th>ViewComponent</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Lógica</td>
+                        <td>Mínima (solo de presentación)</td>
+                        <td>Puede tener lógica compleja e inyección de dependencias</td>
+                    </tr>
+                    <tr>
+                        <td>Servicios</td>
+                        <td>No inyecta servicios propios</td>
+                        <td>Recibe servicios por constructor</td>
+                    </tr>
+                    <tr>
+                        <td>Caché / Async</td>
+                        <td>Limitado</td>
+                        <td>Soporta async completo</td>
+                    </tr>
+                    <tr>
+                        <td>Uso típico</td>
+                        <td>Tarjetas, filas de tabla, formularios simples</td>
+                        <td>Carrito de compras, menú dinámico, widget con datos de BD</td>
+                    </tr>
+                    <tr>
+                        <td>Sintaxis</td>
+                        <td><code>&lt;partial name="_X" /&gt;</code></td>
+                        <td><code>&lt;vc:nombre-componente /&gt;</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    @*
+        ViewData["Title"] — cada página hija define su propio título:
+          @{ ViewData["Title"] = "Mi Página"; }
+        El layout lo consume aquí para el <title> del navegador.
+    *@
+    <title>@ViewData["Title"] | PRW3 Clase 4</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    @*
+        La sección "Estilos" es OPCIONAL (required: false).
+        Las páginas que necesiten CSS extra la declaran con:
+          @section Estilos { <link rel="stylesheet" href="~/css/pagina.css" /> }
+    *@
+    @await RenderSectionAsync("Estilos", required: false)
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+
+    @* ── NAVBAR — definido en el layout, compartido por todas las páginas ── *@
+    <partial name="_NavBar" />
+
+    @*
+        RenderBody() — punto de inyección del contenido de cada página.
+        Es OBLIGATORIO en el layout. Sin él, el contenido de las páginas no se mostraría.
+        Solo puede aparecer una vez.
+    *@
+    <main class="pb-5">
+        @RenderBody()
+    </main>
+
+    @* ── FOOTER — vista parcial global reutilizable ── *@
+    <partial name="_Footer" />
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    @*
+        RenderSection("Scripts", required: false) — sección OPCIONAL para scripts.
+        Las páginas que necesiten JS propio lo agregan así:
+          @section Scripts {
+              <script>console.log("solo en esta página");</script>
+          }
+        required: false → si la página no declara la sección, no hay error.
+        required: true  → la página DEBE declarar la sección (lanza excepción si no).
+    *@
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

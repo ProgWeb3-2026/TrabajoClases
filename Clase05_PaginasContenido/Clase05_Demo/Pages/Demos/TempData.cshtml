@@ -1,0 +1,156 @@
+@page
+@model Clase05_Demo.Pages.Demos.TempDataModel
+@{
+    ViewData["Title"] = "TempData";
+    var tipo      = TempData["Tipo"]?.ToString() ?? "info";
+    var resultado = TempData["Resultado"]?.ToString();
+}
+
+<div class="py-4 mb-4 text-white" style="background-color:#e67e22;">
+    <div class="container">
+        <span class="badge bg-light text-dark mb-2">Tema 1.5.1</span>
+        <h1 class="display-5 fw-bold">TempData y Patrón PRG</h1>
+        <p class="lead opacity-90">
+            Pasar mensajes entre redirecciones con ciclo de vida de una sola petición.
+        </p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row g-4">
+
+        <div class="col-md-6">
+
+            @*
+                TempData["Resultado"] solo existe en la petición inmediatamente
+                posterior al RedirectToPage(). Al leerlo aquí se consume y desaparece.
+            *@
+            @if (resultado != null)
+            {
+                <div class="alert alert-@tipo alert-dismissible fade show mb-4">
+                    @resultado
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-dark text-white">
+                    Demo — Handlers con nombre y TempData
+                </div>
+                <div class="card-body">
+                    <p class="small text-muted mb-3">
+                        Escribe un nombre y prueba cada botón.
+                        Cada uno llama a un handler distinto y pasa un mensaje diferente por TempData.
+                    </p>
+
+                    @*
+                        Los tres botones comparten el mismo <form>.
+                        asp-page-handler indica qué handler OnPost{Nombre}() invocar.
+                    *@
+                    <form method="post">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Nombre del elemento</label>
+                            <input asp-for="NombreAccion" class="form-control"
+                                   placeholder="Ej: Registro #42" />
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button asp-page-handler="Guardar"
+                                    class="btn btn-success flex-fill">Guardar</button>
+                            <button asp-page-handler="Eliminar"
+                                    class="btn btn-warning flex-fill">Eliminar</button>
+                            <button asp-page-handler="Error"
+                                    class="btn btn-danger flex-fill">Simular Error</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h6 class="mb-0">Ciclo completo de esta demo</h6>
+                </div>
+                <div class="card-body small">
+                    <ol class="mb-0">
+                        <li>GET /Demos/TempData → <code>OnGet()</code> → muestra el formulario</li>
+                        <li>Usuario escribe y hace clic en "Guardar"</li>
+                        <li>POST /Demos/TempData<strong>?handler=Guardar</strong> → <code>OnPostGuardar()</code></li>
+                        <li><code>TempData["Resultado"]</code> = mensaje</li>
+                        <li><code>return RedirectToPage()</code> → HTTP 302</li>
+                        <li>Browser → GET /Demos/TempData → <code>OnGet()</code></li>
+                        <li>Vista lee <code>TempData["Resultado"]</code> → muestra alerta</li>
+                        <li><em>En la próxima petición TempData ya no existe</em></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow-sm mb-3">
+                <div class="card-header bg-info text-dark">
+                    <h6 class="mb-0">TempData — cómo funciona</h6>
+                </div>
+                <div class="card-body small">
+                    <pre class="bg-light p-2 rounded">
+// En OnPost*():
+TempData["Tipo"]      = "success";
+TempData["Resultado"] = "Guardado correctamente.";
+return RedirectToPage();
+
+// En la vista (tras la redirección):
+@@{
+    var tipo      = TempData["Tipo"]?.ToString();
+    var resultado = TempData["Resultado"]?.ToString();
+}
+@@if (resultado != null)
+{
+    &lt;div class="alert alert-@@tipo"&gt;
+        @@resultado
+    &lt;/div&gt;
+}
+</pre>
+                    <div class="alert alert-warning mb-0 mt-2 small">
+                        <strong>Ciclo de vida:</strong> TempData persiste exactamente
+                        hasta la próxima petición. Si no se lee, se descarta en la
+                        petición siguiente.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-secondary text-white">
+                    <h6 class="mb-0">TempData vs ViewData vs ViewBag</h6>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-sm table-bordered mb-0 small">
+                        <thead class="table-dark">
+                            <tr><th>Mecanismo</th><th>Alcance</th><th>Uso típico</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>TempData</code></td>
+                                <td>Hasta la próxima petición</td>
+                                <td>Mensajes tras redirección (PRG)</td>
+                            </tr>
+                            <tr>
+                                <td><code>ViewData</code></td>
+                                <td>Solo la petición actual</td>
+                                <td>Pasar datos del PageModel a la vista (ej. Title)</td>
+                            </tr>
+                            <tr>
+                                <td><code>ViewBag</code></td>
+                                <td>Solo la petición actual</td>
+                                <td>Igual que ViewData, sintaxis dinámica</td>
+                            </tr>
+                            <tr>
+                                <td>Propiedad pública</td>
+                                <td>Solo la petición actual</td>
+                                <td>Forma preferida en Razor Pages (<code>Model.X</code>)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

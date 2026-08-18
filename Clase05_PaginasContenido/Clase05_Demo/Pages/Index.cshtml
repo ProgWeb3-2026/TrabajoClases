@@ -1,0 +1,47 @@
+@page
+@model Clase05_Demo.Pages.IndexModel
+@{
+    ViewData["Title"] = "Clase 5 — Páginas de Contenido";
+}
+
+<div class="bg-dark text-white py-4 mb-4">
+    <div class="container">
+        <span class="badge bg-warning text-dark mb-2">Tema 1.5</span>
+        <h1 class="display-5 fw-bold">Páginas de Contenido en Razor Pages</h1>
+        <p class="lead opacity-90">
+            Handlers, IActionResult, [BindProperty], ModelState y TempData.
+        </p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row g-3">
+        <div class="col-md-4">
+            <a asp-page="/Demos/Handlers" class="card text-decoration-none h-100">
+                <div class="card-body text-center">
+                    <div class="fs-1">⚙️</div>
+                    <h6 class="mt-2">Handlers y IActionResult</h6>
+                    <small class="text-muted">OnGet, OnPost, Page(), RedirectToPage(), NotFound()</small>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a asp-page="/Demos/FormBinding" class="card text-decoration-none h-100">
+                <div class="card-body text-center">
+                    <div class="fs-1">📋</div>
+                    <h6 class="mt-2">[BindProperty] + ModelState</h6>
+                    <small class="text-muted">Binding de formulario, DataAnnotations, validación</small>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a asp-page="/Demos/TempData" class="card text-decoration-none h-100">
+                <div class="card-body text-center">
+                    <div class="fs-1">📨</div>
+                    <h6 class="mt-2">TempData</h6>
+                    <small class="text-muted">Mensajes entre redirecciones, patrón PRG</small>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

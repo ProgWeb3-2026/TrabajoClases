@@ -1,0 +1,56 @@
+@page
+@model Clase04_Demo.Pages.IndexModel
+@{
+    ViewData["Title"] = "Clase 4 — Layout y Vistas Parciales";
+}
+
+<div class="bg-dark text-white py-4 mb-4">
+    <div class="container">
+        <span class="badge bg-warning text-dark mb-2">Tema 1.4</span>
+        <h1 class="display-5 fw-bold">Diseño de Páginas con _Layout.cshtml</h1>
+        <p class="lead opacity-90">
+            Layout compartido, secciones, _ViewStart, _ViewImports y Vistas Parciales.
+        </p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row g-3">
+        <div class="col-md-3">
+            <a asp-page="/Demos/Layout" class="card text-decoration-none h-100">
+                <div class="card-body text-center">
+                    <div class="fs-1">🗂️</div>
+                    <h6 class="mt-2">_Layout.cshtml</h6>
+                    <small class="text-muted">RenderBody, RenderSection, ViewData["Title"]</small>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a asp-page="/Demos/ViewStart" class="card text-decoration-none h-100">
+                <div class="card-body text-center">
+                    <div class="fs-1">⚙️</div>
+                    <h6 class="mt-2">_ViewStart / _ViewImports</h6>
+                    <small class="text-muted">Layout por defecto, @@addTagHelper, @@using global</small>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a asp-page="/Demos/Parciales" class="card text-decoration-none h-100">
+                <div class="card-body text-center">
+                    <div class="fs-1">🧩</div>
+                    <h6 class="mt-2">Vistas Parciales</h6>
+                    <small class="text-muted">&lt;partial&gt;, modelo tipado, Html.PartialAsync</small>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a asp-page="/Demos/SinLayout" class="card text-decoration-none h-100">
+                <div class="card-body text-center">
+                    <div class="fs-1">🚫</div>
+                    <h6 class="mt-2">Sin Layout</h6>
+                    <small class="text-muted">Layout = null — cuándo y por qué</small>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

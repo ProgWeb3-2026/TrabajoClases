@@ -1,0 +1,163 @@
+@page
+@model Clase05_Demo.Pages.Demos.HandlersModel
+@{
+    ViewData["Title"] = "Handlers y IActionResult";
+}
+
+<div class="bg-primary text-white py-4 mb-4">
+    <div class="container">
+        <span class="badge bg-light text-dark mb-2">Tema 1.5.1</span>
+        <h1 class="display-5 fw-bold">Handlers y IActionResult</h1>
+        <p class="lead opacity-90">
+            Cómo responde el PageModel a peticiones GET y POST.
+        </p>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="row g-4 mb-4">
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm border-primary">
+                <div class="card-header bg-primary text-white">OnGet() / OnGetAsync()</div>
+                <div class="card-body small">
+                    <p>Se ejecuta en peticiones <strong>HTTP GET</strong>.
+                       Carga los datos que la vista necesita mostrar.</p>
+                    <pre class="bg-light p-2 rounded">
+// Sin retorno — siempre renderiza la página
+public void OnGet()
+{
+    Titulo = "Hola, mundo";
+    Items  = repositorio.Lista;
+}
+
+// Versión asíncrona para acceso a BD
+public async Task OnGetAsync()
+{
+    Items = await _repo.ListarAsync();
+}
+</pre>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm border-success">
+                <div class="card-header bg-success text-white">OnPost() / OnPostAsync()</div>
+                <div class="card-body small">
+                    <p>Se ejecuta en peticiones <strong>HTTP POST</strong>
+                       (formularios con <code>method="post"</code>).</p>
+                    <pre class="bg-light p-2 rounded">
+// Con IActionResult — permite redirigir o devolver errores
+public IActionResult OnPost()
+{
+    if (!ModelState.IsValid)
+        return Page();        // re-muestra con errores
+
+    // ... guardar datos ...
+    TempData["Ok"] = "Guardado.";
+    return RedirectToPage(); // patrón PRG
+}
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0">Retornos IActionResult</h5>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-sm table-bordered mb-0">
+                <thead class="table-dark">
+                    <tr><th>Método</th><th>HTTP</th><th>Cuándo usarlo</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>Page()</code></td>
+                        <td>200</td>
+                        <td>Renderizar la vista actual (GET normal, POST con errores)</td>
+                    </tr>
+                    <tr>
+                        <td><code>RedirectToPage("/Ruta")</code></td>
+                        <td>302</td>
+                        <td>Redirigir a otra página tras un POST exitoso</td>
+                    </tr>
+                    <tr>
+                        <td><code>RedirectToPage()</code></td>
+                        <td>302</td>
+                        <td>Redirigir a la misma página (patrón PRG)</td>
+                    </tr>
+                    <tr>
+                        <td><code>NotFound()</code></td>
+                        <td>404</td>
+                        <td>El recurso solicitado no existe</td>
+                    </tr>
+                    <tr>
+                        <td><code>BadRequest()</code></td>
+                        <td>400</td>
+                        <td>Parámetros inválidos en la petición</td>
+                    </tr>
+                    <tr>
+                        <td><code>Content("texto")</code></td>
+                        <td>200</td>
+                        <td>Respuesta de texto plano (diagnóstico, APIs simples)</td>
+                    </tr>
+                    <tr>
+                        <td><code>Redirect("url")</code></td>
+                        <td>302</td>
+                        <td>Redirigir a una URL externa</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+            <h6 class="mb-0">Handler con parámetro de ruta</h6>
+        </div>
+        <div class="card-body">
+            <p>Los handlers pueden recibir parámetros directamente como argumentos:</p>
+            <pre class="bg-light p-3 rounded small">
+// En la vista: @@page "{id:int}"
+// URL: /Productos/Detalle/5
+
+public IActionResult OnGet(int id)
+{
+    var producto = datos.BuscarPorId(id);
+    if (producto is null)
+        return NotFound();   // 404 si no existe
+
+    Producto = producto;
+    return Page();
+}
+</pre>
+            <div class="alert alert-info mb-0 small">
+                Alternativa con <code>[BindProperty(SupportsGet=true)]</code>
+                — vincula el parámetro como propiedad del PageModel en lugar de argumento del handler.
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header">
+            <h6 class="mb-0">Handlers con nombre (Named Handlers)</h6>
+        </div>
+        <div class="card-body small">
+            <p>Una página puede tener múltiples handlers POST con nombres distintos:</p>
+            <pre class="bg-light p-3 rounded">
+// En el PageModel:
+public IActionResult OnPostGuardar()   { ... }
+public IActionResult OnPostEliminar()  { ... }
+
+// En la vista — el botón indica qué handler invocar:
+&lt;button asp-page-handler="Guardar"&gt;Guardar&lt;/button&gt;
+&lt;button asp-page-handler="Eliminar"&gt;Eliminar&lt;/button&gt;
+
+// Genera:  &lt;form action="/Pagina?handler=Guardar" method="post"&gt;
+</pre>
+        </div>
+    </div>
+
+</div>
