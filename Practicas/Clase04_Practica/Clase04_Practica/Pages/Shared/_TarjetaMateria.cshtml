@@ -1,0 +1,28 @@
+@model Clase04_Practica.Models.Materia
+
+<div class="card h-100 shadow-sm @(Model.Activa ? "" : "opacity-50")">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+            <span class="fs-2">@Model.Icono</span>
+            <span class="badge @(Model.Activa ? "bg-success" : "bg-secondary")">
+                @(Model.Activa ? "Activa" : "Inactiva")
+            </span>
+        </div>
+        <span class="badge bg-light text-dark border mb-2">@Model.Semestre semestre</span>
+        <h6 class="card-title fw-bold">@Model.Nombre</h6>
+        <p class="card-text text-muted small">@Model.Descripcion</p>
+        <p class="small mb-0">
+            <span class="text-muted">Docente:</span> @Model.Docente
+        </p>
+        <p class="small">
+            <span class="text-muted">Horas/semana:</span> @Model.HorasSemanales h
+        </p>
+    </div>
+    <div class="card-footer bg-transparent">
+        <a asp-page="/Materias/Detalle"
+           asp-route-id="@Model.Id"
+           class="btn btn-sm btn-outline-primary w-100">
+            Ver detalle →
+        </a>
+    </div>
+</div>

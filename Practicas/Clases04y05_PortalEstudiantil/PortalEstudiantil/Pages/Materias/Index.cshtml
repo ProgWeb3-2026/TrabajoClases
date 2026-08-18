@@ -1,0 +1,50 @@
+@page
+@model PortalEstudiantil.Pages.Materias.IndexModel
+@{
+    ViewData["Title"] = "Materias";
+}
+
+<div class="bg-light border-bottom py-3 mb-4">
+    <div class="container d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <h2 class="mb-0">📚 Catálogo de Materias</h2>
+        <form method="get" class="d-flex gap-2">
+            <select name="semestre" class="form-select form-select-sm" style="width:auto">
+                <option value="">Todos los semestres</option>
+                @foreach (var sem in Model.Semestres)
+                {
+                    if (sem == Model.SemestreFiltro)
+                    {
+                        <option value="@sem" selected>@sem semestre</option>
+                    }
+                    else
+                    {
+                        <option value="@sem">@sem semestre</option>
+                    }
+                }
+            </select>
+            <button type="submit" class="btn btn-sm btn-primary">Filtrar</button>
+            @if (!string.IsNullOrEmpty(Model.SemestreFiltro))
+            {
+                <a asp-page="/Materias/Index" class="btn btn-sm btn-outline-secondary">Limpiar</a>
+            }
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    @if (!Model.Materias.Any())
+    {
+        <div class="alert alert-warning">No hay materias para el filtro seleccionado.</div>
+    }
+    else
+    {
+        <div class="row g-3">
+            @foreach (var materia in Model.Materias)
+            {
+                <div class="col-md-4">
+                    <partial name="_TarjetaMateria" model="@materia" />
+                </div>
+            }
+        </div>
+    }
+</div>

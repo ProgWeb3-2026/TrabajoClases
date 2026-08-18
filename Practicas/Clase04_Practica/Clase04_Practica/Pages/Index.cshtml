@@ -1,0 +1,56 @@
+@page
+@model Clase04_Practica.Pages.IndexModel
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<section class="hero py-5 text-white text-center">
+    <div class="container">
+        <div class="fs-1 mb-2">🎓</div>
+        <h1 class="display-5 fw-bold">Portal de Materias</h1>
+        <p class="lead">Ingeniería de Sistemas — Universidad Privada del Valle</p>
+        <a asp-page="/Materias/Index" class="btn btn-warning btn-lg mt-2 fw-bold">
+            Ver Materias
+        </a>
+    </div>
+</section>
+
+<div class="container my-5">
+    <div class="row g-4 text-center">
+        <div class="col-md-4">
+            <div class="p-4 border rounded shadow-sm">
+                <div class="display-4 fw-bold text-primary">@Model.TotalMaterias</div>
+                <div class="text-muted mt-1">Materias registradas</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-4 border rounded shadow-sm">
+                <div class="display-4 fw-bold text-success">@Model.MateriasActivas</div>
+                <div class="text-muted mt-1">Activas este semestre</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-4 border rounded shadow-sm">
+                <div class="display-4 fw-bold text-info">@Model.TotalSemestres</div>
+                <div class="text-muted mt-1">Semestres cubiertos</div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-5" />
+
+    <h4 class="mb-4">Materias destacadas</h4>
+    <div class="row g-3">
+        @foreach (var materia in Model.MateriasDestacadas)
+        {
+            <div class="col-md-4">
+                <partial name="_TarjetaMateria" model="@materia" />
+            </div>
+        }
+    </div>
+    <div class="text-center mt-4">
+        <a asp-page="/Materias/Index" class="btn btn-outline-primary">
+            Ver todas las materias →
+        </a>
+    </div>
+</div>

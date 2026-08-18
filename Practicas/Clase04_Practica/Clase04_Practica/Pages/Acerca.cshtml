@@ -1,0 +1,27 @@
+@page
+@model Clase04_Practica.Pages.AcercaModel
+@{
+    ViewData["Title"] = "Acerca";
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <h2 class="mb-4">Acerca del Portal</h2>
+            <p>
+                Este portal fue construido durante la clase de
+                <strong>Programación Web III</strong> para practicar el uso de
+                <code>_Layout.cshtml</code>, vistas parciales y el sistema de plantillas
+                de ASP.NET Core Razor Pages.
+            </p>
+            <hr />
+            <h5 class="mt-4">Tecnologías utilizadas</h5>
+            <ul class="list-group list-group-flush mt-2">
+                @foreach (var tech in Model.Tecnologias)
+                {
+                    <li class="list-group-item">@tech</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

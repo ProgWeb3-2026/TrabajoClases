@@ -1,0 +1,80 @@
+@page
+@model PortalEstudiantil.Pages.ContactoModel
+@{
+    ViewData["Title"] = "Contacto";
+}
+
+<div class="bg-light border-bottom py-3 mb-4">
+    <div class="container">
+        <h2 class="mb-0">✉️ Contacto</h2>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-7">
+
+            @if (TempData["MensajeOk"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show">
+                    ✅ @TempData["MensajeOk"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <form method="post">
+                        <div class="mb-3">
+                            <label asp-for="Formulario.Nombre" class="form-label fw-semibold"></label>
+                            <input asp-for="Formulario.Nombre" class="form-control" placeholder="Tu nombre completo" />
+                            <span asp-validation-for="Formulario.Nombre" class="text-danger small"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Formulario.Email" class="form-label fw-semibold"></label>
+                            <input asp-for="Formulario.Email" class="form-control" placeholder="correo@ejemplo.com" />
+                            <span asp-validation-for="Formulario.Email" class="text-danger small"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Formulario.Asunto" class="form-label fw-semibold"></label>
+                            <input asp-for="Formulario.Asunto" class="form-control" placeholder="Motivo de contacto" />
+                            <span asp-validation-for="Formulario.Asunto" class="text-danger small"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="Formulario.Mensaje" class="form-label fw-semibold"></label>
+                            <textarea asp-for="Formulario.Mensaje" class="form-control" rows="4"
+                                      placeholder="Escribe tu mensaje aquí..."></textarea>
+                            <span asp-validation-for="Formulario.Mensaje" class="text-danger small"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Enviar mensaje</button>
+                    </form>
+                </div>
+            </div>
+
+            @if (PortalEstudiantil.Pages.ContactoModel.MensajesEnviados.Count > 0)
+            {
+                <div class="card shadow-sm mt-4">
+                    <div class="card-header small fw-semibold">
+                        Mensajes recibidos en esta sesión (@PortalEstudiantil.Pages.ContactoModel.MensajesEnviados.Count)
+                    </div>
+                    <div class="list-group list-group-flush small">
+                        @foreach (var msg in PortalEstudiantil.Pages.ContactoModel.MensajesEnviados)
+                        {
+                            <div class="list-group-item">
+                                <strong>@msg.Nombre</strong>
+                                <span class="text-muted ms-2">@msg.Email</span>
+                                <span class="badge bg-light text-dark border ms-2">@msg.Asunto</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"></script>
+}

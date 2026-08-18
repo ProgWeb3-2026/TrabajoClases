@@ -1,0 +1,84 @@
+@page "{id:int}"
+@model PortalEstudiantil.Pages.Materias.DetalleModel
+@{
+    ViewData["Title"] = Model.Materia.Nombre;
+}
+
+<div class="bg-light border-bottom py-3 mb-4">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a asp-page="/Index">Inicio</a></li>
+                <li class="breadcrumb-item"><a asp-page="/Materias/Index">Materias</a></li>
+                <li class="breadcrumb-item active">@Model.Materia.Nombre</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row g-4">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <span class="fs-1">@Model.Materia.Icono</span>
+                            <h2 class="mt-2 mb-1">@Model.Materia.Nombre</h2>
+                            <span class="badge bg-light text-dark border">@Model.Materia.Semestre semestre</span>
+                        </div>
+                        <span class="badge fs-6 @(Model.Materia.Activa ? "bg-success" : "bg-secondary")">
+                            @(Model.Materia.Activa ? "Activa" : "Inactiva")
+                        </span>
+                    </div>
+                    <p class="lead">@Model.Materia.Descripcion</p>
+                    <table class="table table-borderless mt-3">
+                        <tr>
+                            <th style="width:160px" class="text-muted">Docente</th>
+                            <td>@Model.Materia.Docente</td>
+                        </tr>
+                        <tr>
+                            <th class="text-muted">Horas semanales</th>
+                            <td>@Model.Materia.HorasSemanales horas</td>
+                        </tr>
+                        <tr>
+                            <th class="text-muted">Semestre</th>
+                            <td>@Model.Materia.Semestre</td>
+                        </tr>
+                    </table>
+                    <div class="d-flex gap-2 mt-4 flex-wrap">
+                        <a asp-page="/Materias/Index" class="btn btn-outline-secondary">← Volver</a>
+                        @if (Model.Anterior is not null)
+                        {
+                            <a asp-page="/Materias/Detalle"
+                               asp-route-id="@Model.Anterior.Id"
+                               class="btn btn-outline-primary">← @Model.Anterior.Nombre</a>
+                        }
+                        @if (Model.Siguiente is not null)
+                        {
+                            <a asp-page="/Materias/Detalle"
+                               asp-route-id="@Model.Siguiente.Id"
+                               class="btn btn-outline-primary">@Model.Siguiente.Nombre →</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-header fw-semibold">Otras materias</div>
+                <div class="list-group list-group-flush">
+                    @foreach (var m in Model.OtrasMaterias)
+                    {
+                        <a asp-page="/Materias/Detalle"
+                           asp-route-id="@m.Id"
+                           class="list-group-item list-group-item-action d-flex gap-2 align-items-center">
+                            <span>@m.Icono</span>
+                            <span class="small">@m.Nombre</span>
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
