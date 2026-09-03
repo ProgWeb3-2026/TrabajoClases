@@ -1,0 +1,183 @@
+/* =============================================
+   TEMA ROJO — Corporativo / Dinámico
+   ============================================= */
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fff8f8;
+    color: #1a0000;
+}
+
+/* Navbar */
+nav.navbar {
+    background-color: #b71c1c !important;
+}
+
+.navbar-brand {
+    color: #ffcdd2 !important;
+}
+
+.nav-link {
+    color: #ef9a9a !important;
+}
+
+.nav-link:hover {
+    color: #ffffff !important;
+}
+
+.navbar-text {
+    color: #ef9a9a !important;
+}
+
+/* Hero */
+.hero {
+    background: linear-gradient(135deg, #b71c1c 0%, #c62828 50%, #d32f2f 100%);
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+}
+
+/* Cards */
+.card {
+    background-color: #ffffff;
+    border: 1px solid #ffcdd2;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(183, 28, 28, 0.18) !important;
+    border-color: #ef5350;
+}
+
+.card-header {
+    background-color: #ffebee !important;
+    border-bottom: 2px solid #ef9a9a;
+    color: #b71c1c !important;
+    font-weight: 600;
+}
+
+.card-footer {
+    background-color: #fff8f8 !important;
+    border-top: 1px solid #ffcdd2;
+}
+
+/* Botones */
+.btn-primary {
+    background-color: #c62828;
+    border-color: #c62828;
+}
+
+.btn-primary:hover {
+    background-color: #d32f2f;
+    border-color: #d32f2f;
+}
+
+.btn-outline-primary {
+    color: #c62828;
+    border-color: #c62828;
+}
+
+.btn-outline-primary:hover {
+    background-color: #c62828;
+    color: #fff;
+}
+
+.btn-outline-secondary {
+    color: #b71c1c;
+    border-color: #ef9a9a;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #ffebee;
+    color: #b71c1c;
+    border-color: #ef9a9a;
+}
+
+.btn-warning {
+    background-color: #ff6f00;
+    border-color: #ff6f00;
+    color: #fff;
+    font-weight: 600;
+}
+
+.btn-warning:hover {
+    background-color: #e65100;
+    border-color: #e65100;
+    color: #fff;
+}
+
+.btn-outline-light {
+    border-color: #ffcdd2;
+    color: #ffcdd2;
+}
+
+.btn-outline-light:hover {
+    background-color: #ffcdd2;
+    color: #b71c1c;
+}
+
+/* Tablas */
+.table-dark thead th {
+    background-color: #b71c1c;
+    border-color: #c62828;
+}
+
+/* Alertas */
+.alert-success {
+    background-color: #e8f5e9;
+    border-color: #a5d6a7;
+    color: #1b5e20;
+}
+
+.alert-info {
+    background-color: #ffebee;
+    border-color: #ef9a9a;
+    color: #b71c1c;
+}
+
+/* Formularios */
+.form-control:focus, .form-select:focus {
+    border-color: #e53935;
+    box-shadow: 0 0 0 0.2rem rgba(229, 57, 53, 0.25);
+}
+
+.form-label {
+    color: #c62828;
+    font-weight: 600;
+}
+
+/* Breadcrumb */
+.breadcrumb-item a {
+    color: #c62828;
+    text-decoration: none;
+}
+
+/* Footer */
+footer {
+    background-color: #7f0000 !important;
+}
+
+/* Fondo bg-light */
+.bg-light {
+    background-color: #ffebee !important;
+}
+
+/* List group */
+.list-group-item:hover {
+    background-color: #ffebee;
+    color: #b71c1c;
+}
+
+/* Colores de estadísticas */
+.text-primary {
+    color: #c62828 !important;
+}
+
+.text-success {
+    color: #2e7d32 !important;
+}
+
+.text-info {
+    color: #d32f2f !important;
+}

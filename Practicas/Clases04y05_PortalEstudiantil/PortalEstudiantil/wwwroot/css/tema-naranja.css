@@ -1,0 +1,199 @@
+/* =============================================
+   TEMA NARANJA — Energético / Juvenil
+   ============================================= */
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fff8f0;
+    color: #1a1000;
+}
+
+/* Navbar */
+nav.navbar {
+    background-color: #e65100 !important;
+}
+
+.navbar-brand {
+    color: #ffe0b2 !important;
+}
+
+.nav-link {
+    color: #ffcc80 !important;
+}
+
+.nav-link:hover {
+    color: #ffffff !important;
+}
+
+.navbar-text {
+    color: #ffcc80 !important;
+}
+
+/* Hero */
+.hero {
+    background: linear-gradient(135deg, #bf360c 0%, #d84315 50%, #e64a19 100%);
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+}
+
+/* Cards */
+.card {
+    background-color: #ffffff;
+    border: 1px solid #ffe0b2;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(230, 81, 0, 0.20) !important;
+    border-color: #ff9800;
+}
+
+.card-header {
+    background-color: #fff3e0 !important;
+    border-bottom: 2px solid #ffcc80;
+    color: #e65100 !important;
+    font-weight: 600;
+}
+
+.card-footer {
+    background-color: #fff8f0 !important;
+    border-top: 1px solid #ffe0b2;
+}
+
+/* Botones */
+.btn-primary {
+    background-color: #e65100;
+    border-color: #e65100;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #bf360c;
+    border-color: #bf360c;
+}
+
+.btn-outline-primary {
+    color: #e65100;
+    border-color: #e65100;
+}
+
+.btn-outline-primary:hover {
+    background-color: #e65100;
+    color: #fff;
+}
+
+.btn-outline-secondary {
+    color: #e65100;
+    border-color: #ffcc80;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #fff3e0;
+    color: #bf360c;
+    border-color: #ffcc80;
+}
+
+.btn-warning {
+    background-color: #f57f17;
+    border-color: #f57f17;
+    color: #fff;
+    font-weight: 600;
+}
+
+.btn-warning:hover {
+    background-color: #e65100;
+    border-color: #e65100;
+    color: #fff;
+}
+
+.btn-outline-light {
+    border-color: #ffe0b2;
+    color: #ffe0b2;
+}
+
+.btn-outline-light:hover {
+    background-color: #ffe0b2;
+    color: #e65100;
+}
+
+/* Tablas */
+.table-dark thead th {
+    background-color: #e65100;
+    border-color: #bf360c;
+}
+
+/* Alertas */
+.alert-success {
+    background-color: #e8f5e9;
+    border-color: #a5d6a7;
+    color: #1b5e20;
+}
+
+.alert-info {
+    background-color: #fff3e0;
+    border-color: #ffcc80;
+    color: #e65100;
+}
+
+.alert-warning {
+    background-color: #fff8e1;
+    border-color: #ffe082;
+    color: #f57f17;
+}
+
+/* Formularios */
+.form-control:focus, .form-select:focus {
+    border-color: #ff9800;
+    box-shadow: 0 0 0 0.2rem rgba(255, 152, 0, 0.30);
+}
+
+.form-label {
+    color: #bf360c;
+    font-weight: 600;
+}
+
+/* Breadcrumb */
+.breadcrumb-item a {
+    color: #e65100;
+    text-decoration: none;
+}
+
+.bg-light.border-bottom {
+    border-color: #ffcc80 !important;
+}
+
+/* Footer */
+footer {
+    background-color: #7f2b00 !important;
+}
+
+/* Fondo bg-light */
+.bg-light {
+    background-color: #fff3e0 !important;
+}
+
+/* List group */
+.list-group-item:hover {
+    background-color: #fff3e0;
+    color: #e65100;
+}
+
+/* Colores de estadísticas */
+.text-primary {
+    color: #e65100 !important;
+}
+
+.text-success {
+    color: #2e7d32 !important;
+}
+
+.text-info {
+    color: #f57f17 !important;
+}
+
+/* Badges */
+.badge.bg-primary {
+    background-color: #e65100 !important;
+}

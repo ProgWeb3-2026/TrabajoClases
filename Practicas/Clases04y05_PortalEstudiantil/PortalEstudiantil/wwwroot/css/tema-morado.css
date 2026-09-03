@@ -1,0 +1,165 @@
+/* =============================================
+   TEMA MORADO — Moderno / Creativo
+   ============================================= */
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f3e5f5;
+    color: #1a0033;
+}
+
+/* Navbar */
+nav.navbar {
+    background-color: #4a148c !important;
+}
+
+.navbar-brand {
+    color: #e1bee7 !important;
+}
+
+.nav-link {
+    color: #ce93d8 !important;
+}
+
+.nav-link:hover {
+    color: #ffffff !important;
+}
+
+/* Hero */
+.hero {
+    background: linear-gradient(135deg, #4a148c 0%, #6a1b9a 50%, #7b1fa2 100%);
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+}
+
+/* Cards */
+.card {
+    background-color: #ffffff;
+    border: 1px solid #e1bee7;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(106, 27, 154, 0.20) !important;
+    border-color: #9c27b0;
+}
+
+.card-header {
+    background-color: #f3e5f5 !important;
+    border-bottom: 2px solid #ce93d8;
+    color: #4a148c !important;
+    font-weight: 600;
+}
+
+.card-footer {
+    background-color: #fce4ec !important;
+    border-top: 1px solid #e1bee7;
+}
+
+/* Botones */
+.btn-primary {
+    background-color: #6a1b9a;
+    border-color: #6a1b9a;
+}
+
+.btn-primary:hover {
+    background-color: #7b1fa2;
+    border-color: #7b1fa2;
+}
+
+.btn-outline-primary {
+    color: #6a1b9a;
+    border-color: #6a1b9a;
+}
+
+.btn-outline-primary:hover {
+    background-color: #6a1b9a;
+    color: #fff;
+}
+
+.btn-outline-secondary {
+    color: #7b1fa2;
+    border-color: #ce93d8;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #e1bee7;
+    color: #4a148c;
+    border-color: #ce93d8;
+}
+
+.btn-warning {
+    background-color: #f50057;
+    border-color: #f50057;
+    color: #fff;
+    font-weight: 600;
+}
+
+.btn-warning:hover {
+    background-color: #c51162;
+    border-color: #c51162;
+    color: #fff;
+}
+
+/* Tablas */
+.table-dark thead th {
+    background-color: #4a148c;
+    border-color: #6a1b9a;
+}
+
+/* Alertas */
+.alert-success {
+    background-color: #e8f5e9;
+    border-color: #a5d6a7;
+    color: #1b5e20;
+}
+
+.alert-info {
+    background-color: #f3e5f5;
+    border-color: #ce93d8;
+    color: #4a148c;
+}
+
+/* Formularios */
+.form-control:focus, .form-select:focus {
+    border-color: #9c27b0;
+    box-shadow: 0 0 0 0.2rem rgba(156, 39, 176, 0.25);
+}
+
+.form-label {
+    color: #6a1b9a;
+    font-weight: 600;
+}
+
+/* Breadcrumb */
+.breadcrumb-item a {
+    color: #6a1b9a;
+    text-decoration: none;
+}
+
+/* Footer */
+footer {
+    background-color: #1a0033 !important;
+}
+
+/* Fondo bg-light */
+.bg-light {
+    background-color: #f3e5f5 !important;
+}
+
+/* List group */
+.list-group-item:hover {
+    background-color: #f3e5f5;
+    color: #6a1b9a;
+}
+
+/* Display numbers (stats) */
+.text-primary {
+    color: #6a1b9a !important;
+}
+
+.text-info {
+    color: #8e24aa !important;
+}
