@@ -1,0 +1,58 @@
+@page
+@model EntityFramework.Pages.HotelCLASPages.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>HotelCLAS</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="HotelCLAS.Nombre" class="control-label"></label>
+                <input asp-for="HotelCLAS.Nombre" class="form-control" aria-required="true"/>
+                <span asp-validation-for="HotelCLAS.Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="HotelCLAS.Ciudad" class="control-label"></label>
+                <input asp-for="HotelCLAS.Ciudad" class="form-control" aria-required="true"/>
+                <span asp-validation-for="HotelCLAS.Ciudad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="HotelCLAS.CategoriaEstrellas" class="control-label"></label>
+                <input asp-for="HotelCLAS.CategoriaEstrellas" class="form-control" aria-required="true"/>
+                <span asp-validation-for="HotelCLAS.CategoriaEstrellas" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="HotelCLAS.PrecioPorNoche" class="control-label"></label>
+                <input asp-for="HotelCLAS.PrecioPorNoche" class="form-control" aria-required="true"/>
+                <span asp-validation-for="HotelCLAS.PrecioPorNoche" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HotelCLAS.Disponible" class="control-label"></label>
+                <input asp-for="HotelCLAS.Disponible" class="form-check-input" />
+                <span asp-validation-for="HotelCLAS.Disponible" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
