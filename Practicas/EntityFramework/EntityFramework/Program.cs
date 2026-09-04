@@ -1,4 +1,8 @@
+using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("EntityFrameworkContext") ?? throw new InvalidOperationException("Connection string 'EntityFrameworkContext' not found.");
+
+builder.Services.AddDbContext<EntityFrameworkContext>(options => options.UseSqlServer(connectionString));
 
 // Add services to the container.
 builder.Services.AddRazorPages();
