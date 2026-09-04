@@ -1,0 +1,86 @@
+@page
+@model EntityFramework.Pages.MascotaPages.CreateModel
+
+@{
+    ViewData["Title"] = "Registrar Mascota";
+}
+
+<div class="container my-4">
+   
+    <div class="mb-3">
+        <a asp-page="./Index" class="btn btn-link text-secondary text-decoration-none p-0">
+            ⬅️ Volver al listado
+        </a>
+    </div>
+
+   
+    <div class="card shadow-sm border-0 rounded">
+        <div class="card-header bg-primary text-white py-3">
+            <h3 class="card-title m-0 h5">📝 Registrar Nueva Mascota</h3>
+            <small class="text-white-50">Ingresa los datos correspondientes en el formulario.</small>
+        </div>
+
+        <div class="card-body p-4">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                <div class="row g-3">
+                   
+                    <div class="col-md-6">
+                        <label asp-for="Mascota.Nombre" class="form-label fw-bold">Nombre <span class="text-danger">*</span></label>
+                        <input asp-for="Mascota.Nombre" class="form-control" aria-required="true" placeholder="Ej. Firulais" />
+                        <span asp-validation-for="Mascota.Nombre" class="form-text text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Mascota.Especie" class="form-label fw-bold">Especie</label>
+                        <input asp-for="Mascota.Especie" class="form-control" placeholder="Ej. Perro, Gato" />
+                        <span asp-validation-for="Mascota.Especie" class="form-text text-danger"></span>
+                    </div>
+
+                   
+                    <div class="col-md-6">
+                        <label asp-for="Mascota.Raza" class="form-label fw-bold">Raza <span class="text-danger">*</span></label>
+                        <input asp-for="Mascota.Raza" class="form-control" aria-required="true" placeholder="Ej. Labrador" />
+                        <span asp-validation-for="Mascota.Raza" class="form-text text-danger"></span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label asp-for="Mascota.Edad" class="form-label fw-bold">Edad (Años)</label>
+                        <input asp-for="Mascota.Edad" class="form-control" type="number" min="0" placeholder="0" />
+                        <span asp-validation-for="Mascota.Edad" class="form-text text-danger"></span>
+                    </div>
+
+                
+                    <div class="col-md-3">
+                        <label asp-for="Mascota.Peso" class="form-label fw-bold">Peso (kg)</label>
+                        <input asp-for="Mascota.Peso" class="form-control" type="number" step="0.1" min="0" placeholder="0.0" />
+                        <span asp-validation-for="Mascota.Peso" class="form-text text-danger"></span>
+                    </div>
+
+                    
+                    <div class="col-12 my-3">
+                        <div class="form-check form-switch p-3 bg-light rounded border">
+                            <input asp-for="Mascota.EsDomestica" class="form-check-input ms-0 me-2" type="checkbox" role="switch" id="switchDomestica" />
+                            <label class="form-check-label fw-bold" for="switchDomestica">
+                                ¿Es una mascota doméstica? <span class="text-danger">*</span>
+                            </label>
+                            <span asp-validation-for="Mascota.EsDomestica" class="d-block text-danger small mt-1"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
+                    <a asp-page="./Index" class="btn btn-outline-secondary px-4">Cancelar</a>
+                    <button type="submit" class="btn btn-primary px-4 shadow-sm">💾 Guardar Registro</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

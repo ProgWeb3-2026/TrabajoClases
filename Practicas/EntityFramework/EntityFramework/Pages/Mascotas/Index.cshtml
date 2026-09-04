@@ -1,0 +1,72 @@
+@page
+@model EntityFramework.Pages.MascotaPages.IndexModel
+@{
+    ViewData["Title"] = "Mascotas";
+}
+
+<div class="container my-4 shadow-sm p-4 bg-white rounded">
+
+    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+        <div>
+            <h1 class="display-5 text-primary fw-bold m-0">🐾 Módulo de Mascotas</h1>
+            <p class="text-muted m-0">Gestiona el inventario y registro de los pacientes peludos.</p>
+        </div>
+        <div>
+            <a asp-page="Create" class="btn btn-success btn-lg d-flex align-items-center gap-2 shadow-sm">
+                <span>➕</span> Ingresar Mascota
+            </a>
+        </div>
+    </div>
+
+ 
+    <div class="table-responsive">
+        <table class="table table-hover align-middle border">
+            <thead class="table-dark text-center">
+                <tr>
+                    <th scope="col" class="py-3">@Html.DisplayNameFor(model => model.Mascota[0].Nombre)</th>
+                    <th scope="col" class="py-3">@Html.DisplayNameFor(model => model.Mascota[0].Especie)</th>
+                    <th scope="col" class="py-3">@Html.DisplayNameFor(model => model.Mascota[0].Raza)</th>
+                    <th scope="col" class="py-3">@Html.DisplayNameFor(model => model.Mascota[0].Edad)</th>
+                    <th scope="col" class="py-3">@Html.DisplayNameFor(model => model.Mascota[0].Peso)</th>
+                    <th scope="col" class="py-3">@Html.DisplayNameFor(model => model.Mascota[0].EsDomestica)</th>
+                    <th scope="col" class="py-3">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Mascota)
+                {
+                    <tr class="text-center">
+                        <td class="fw-bold text-dark">@Html.DisplayFor(model => item.Nombre)</td>
+                        <td><span class="badge bg-secondary px-3 py-2 rounded-pill">@Html.DisplayFor(model => item.Especie)</span></td>
+                        <td>@Html.DisplayFor(model => item.Raza)</td>
+                        <td>@Html.DisplayFor(model => item.Edad) años</td>
+                        <td>@Html.DisplayFor(model => item.Peso) kg</td>
+                        <td>
+                            @if (item.EsDomestica)
+                            {
+                                <span class="badge bg-info text-dark">🏠 Sí</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark">🌳 No</span>
+                            }
+                        </td>
+                        <td>
+                            <div class="btn-group shadow-sm" role="group" aria-label="Acciones de mascota">
+                                <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm" title="Editar">
+                                    ✏️ <span class="d-none d-md-inline">Editar</span>
+                                </a>
+                                <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm" title="Detalles">
+                                    👁️ <span class="d-none d-md-inline">Ver</span>
+                                </a>
+                                <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm" title="Eliminar">
+                                    🗑️ <span class="d-none d-md-inline">Borrar</span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

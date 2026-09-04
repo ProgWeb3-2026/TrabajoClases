@@ -1,0 +1,90 @@
+@page
+@model EntityFramework.Pages.MascotaPages.DetailsModel
+
+@{
+    ViewData["Title"] = "Detalles de Mascota";
+}
+
+<div class="container my-4">
+   
+    <div class="mb-3">
+        <a asp-page="./Index" class="btn btn-link text-secondary text-decoration-none p-0">
+            ⬅️ Volver al listado
+        </a>
+    </div>
+
+
+    <div class="card shadow-sm border-0 rounded">
+        <div class="card-header bg-info text-dark py-3">
+            <h3 class="card-title m-0 h5 fw-bold">👁️ Ficha Informativa de la Mascota</h3>
+            <small class="text-secondary">Consulta los datos detallados registrados en el sistema.</small>
+        </div>
+
+        <div class="card-body p-4">
+            <div class="row g-4">
+            
+                <div class="col-md-6 col-lg-4">
+                    <div class="p-3 bg-light rounded border-start border-4 border-info h-100">
+                        <small class="text-uppercase text-muted fw-bold d-block mb-1">@Html.DisplayNameFor(model => model.Mascota.Nombre)</small>
+                        <span class="fs-5 fw-bold text-dark">@Html.DisplayFor(model => model.Mascota.Nombre)</span>
+                    </div>
+                </div>
+
+            
+                <div class="col-md-6 col-lg-4">
+                    <div class="p-3 bg-light rounded h-100">
+                        <small class="text-uppercase text-muted fw-bold d-block mb-1">@Html.DisplayNameFor(model => model.Mascota.Especie)</small>
+                        <span class="badge bg-secondary px-3 py-2 rounded-pill fs-6 mt-1">@Html.DisplayFor(model => model.Mascota.Especie)</span>
+                    </div>
+                </div>
+
+              
+                <div class="col-md-6 col-lg-4">
+                    <div class="p-3 bg-light rounded h-100">
+                        <small class="text-uppercase text-muted fw-bold d-block mb-1">@Html.DisplayNameFor(model => model.Mascota.Raza)</small>
+                        <span class="fs-6 text-dark fw-semibold">@Html.DisplayFor(model => model.Mascota.Raza)</span>
+                    </div>
+                </div>
+
+               
+                <div class="col-md-6 col-lg-4">
+                    <div class="p-3 bg-light rounded h-100">
+                        <small class="text-uppercase text-muted fw-bold d-block mb-1">@Html.DisplayNameFor(model => model.Mascota.Edad)</small>
+                        <span class="fs-5 fw-bold text-dark">@Html.DisplayFor(model => model.Mascota.Edad) <small class="text-muted fs-6 fw-normal">años</small></span>
+                    </div>
+                </div>
+
+              
+                <div class="col-md-6 col-lg-4">
+                    <div class="p-3 bg-light rounded h-100">
+                        <small class="text-uppercase text-muted fw-bold d-block mb-1">@Html.DisplayNameFor(model => model.Mascota.Peso)</small>
+                        <span class="fs-5 fw-bold text-dark">@Html.DisplayFor(model => model.Mascota.Peso) <small class="text-muted fs-6 fw-normal">kg</small></span>
+                    </div>
+                </div>
+
+               
+                <div class="col-md-6 col-lg-4">
+                    <div class="p-3 bg-light rounded h-100">
+                        <small class="text-uppercase text-muted fw-bold d-block mb-2">@Html.DisplayNameFor(model => model.Mascota.EsDomestica)</small>
+                        @if (Model.Mascota.EsDomestica)
+                        {
+                            <span class="badge bg-success px-3 py-2 rounded fs-6">🏠 Sí, es doméstica</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-warning text-dark px-3 py-2 rounded fs-6">🌳 No doméstica</span>
+                        }
+                    </div>
+                </div>
+            </div>
+
+           
+            <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
+                <a asp-page="./Index" class="btn btn-outline-secondary px-4">Regresar</a>
+                <a asp-page="./Edit" asp-route-id="@Model.Mascota.Id" class="btn btn-warning px-4 shadow-sm fw-semibold">
+                    ✏️ Editar Información
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
