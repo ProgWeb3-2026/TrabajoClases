@@ -1,0 +1,66 @@
+﻿@page
+@model EntityFramework.Pages.mascotas.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Mascota[0].Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mascota[0].Especie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mascota[0].Raza)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mascota[0].Edad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mascota[0].Peso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mascota[0].EsDomestica)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Mascota) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Especie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Raza)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Edad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Peso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EsDomestica)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,55 @@
+﻿@page
+@model EntityFramework.Pages.mascotas.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Mascota</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Mascota.Nombre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Mascota.Nombre)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Mascota.Especie)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Mascota.Especie)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Mascota.Raza)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Mascota.Raza)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Mascota.Edad)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Mascota.Edad)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Mascota.Peso)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Mascota.Peso)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Mascota.EsDomestica)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Mascota.EsDomestica)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Mascota.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
