@@ -1,0 +1,63 @@
+@page
+@model EntityFramework.Pages.MascotaPages.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Mascota</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Mascota.Id" />
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Mascota.Nombre" class="control-label"></label>
+                <input asp-for="Mascota.Nombre" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Mascota.Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mascota.Especie" class="control-label"></label>
+                <input asp-for="Mascota.Especie" class="form-control" />
+                <span asp-validation-for="Mascota.Especie" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Mascota.Raza" class="control-label"></label>
+                <input asp-for="Mascota.Raza" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Mascota.Raza" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mascota.Edad" class="control-label"></label>
+                <input asp-for="Mascota.Edad" class="form-control" />
+                <span asp-validation-for="Mascota.Edad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mascota.Peso" class="control-label"></label>
+                <input asp-for="Mascota.Peso" class="form-control" />
+                <span asp-validation-for="Mascota.Peso" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Mascota.EsDomestica" class="control-label"></label>
+                <input asp-for="Mascota.EsDomestica" class="form-check-input" aria-required="true"/>
+                <span asp-validation-for="Mascota.EsDomestica" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
