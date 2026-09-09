@@ -1,0 +1,64 @@
+@page
+@model Examen.Pages.TareaPages.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Tareas</h1>
+<p>Para cambiar modulo debe volver a inicio y escojer el que desee</p>
+<p>
+    <a asp-page="/Index">Inicio</a>
+</p>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Tarea[0].Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tarea[0].Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tarea[0].FechaVencimiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tarea[0].Categoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tarea[0].Publicado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Tarea) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.FechaVencimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Categoria)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Publicado)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

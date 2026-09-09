@@ -1,0 +1,70 @@
+@page
+@model Examen.Pages.InmueblePages.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Inmuebles</h1>
+<p>Para cambiar modulo debe volver a inicio y escojer el que desee</p>
+<p>
+    <a asp-page="/Index">Inicio</a>
+</p>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Inmueble[0].Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Inmueble[0].Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Inmueble[0].Tipo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Inmueble[0].Precio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Inmueble[0].Disponible)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Inmueble[0].FechaPublicaion)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Inmueble) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Tipo)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Precio)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Disponible)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.FechaPublicaion)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
