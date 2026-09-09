@@ -1,0 +1,65 @@
+@page
+@model Practica3.Pages.CursoPages.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Curso</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Curso.Id" />
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Curso.Nombre" class="control-label"></label>
+                <input asp-for="Curso.Nombre" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Curso.Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Curso.Descripcion" class="control-label"></label>
+                <input asp-for="Curso.Descripcion" class="form-control" />
+                <span asp-validation-for="Curso.Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Curso.Instructor" class="control-label"></label>
+                <input asp-for="Curso.Instructor" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Curso.Instructor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Curso.DuracionHoras" class="control-label"></label>
+                <input asp-for="Curso.DuracionHoras" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Curso.DuracionHoras" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Curso.Precio" class="control-label"></label>
+                <input asp-for="Curso.Precio" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Curso.Precio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Curso.Nivel" class="control-label"></label>
+                <input asp-for="Curso.Nivel" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Curso.Nivel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

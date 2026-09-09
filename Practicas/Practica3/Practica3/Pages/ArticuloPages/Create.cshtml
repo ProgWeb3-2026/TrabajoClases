@@ -1,0 +1,64 @@
+@page
+@model Practica3.Pages.ArticuloPages.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Articulo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Articulo.Titulo" class="control-label"></label>
+                <input asp-for="Articulo.Titulo" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Articulo.Titulo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Articulo.Resumen" class="control-label"></label>
+                <input asp-for="Articulo.Resumen" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Articulo.Resumen" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Articulo.Autor" class="control-label"></label>
+                <input asp-for="Articulo.Autor" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Articulo.Autor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Articulo.FechaPublicacion" class="control-label"></label>
+                <input asp-for="Articulo.FechaPublicacion" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Articulo.FechaPublicacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Articulo.Categoria" class="control-label"></label>
+                <input asp-for="Articulo.Categoria" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Articulo.Categoria" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Articulo.Publicado" class="control-label"></label>
+                <input asp-for="Articulo.Publicado" class="form-check-input" />
+                <span asp-validation-for="Articulo.Publicado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

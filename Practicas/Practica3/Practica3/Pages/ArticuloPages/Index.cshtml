@@ -1,0 +1,66 @@
+@page
+@model Practica3.Pages.ArticuloPages.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Articulo[0].Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Articulo[0].Resumen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Articulo[0].Autor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Articulo[0].FechaPublicacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Articulo[0].Categoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Articulo[0].Publicado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Articulo) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Resumen)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Autor)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.FechaPublicacion)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Categoria)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Publicado)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
