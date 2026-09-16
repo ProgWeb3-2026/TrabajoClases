@@ -5,6 +5,8 @@ namespace MVCinicial.Models
 {
     public class Empleado
     {
+        internal object cargos;
+
         [Key]
         public int IdEmpleau {  get; set; }
 
@@ -32,6 +34,6 @@ namespace MVCinicial.Models
         public int? IdCargo { get; set; }
 
         [ForeignKey("IdCargo")]
-        public virtual Cargo Cargo { get; set; }
+        public virtual Cargo? Cargo { get; set; }
     }
 }

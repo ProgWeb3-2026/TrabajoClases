@@ -75,7 +75,7 @@ namespace MVCinicial.Data.Migrations
                     b.Property<DateTime>("FechaNacimiento")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdCargo")
+                    b.Property<int?>("IdCargo")
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")
@@ -303,9 +303,7 @@ namespace MVCinicial.Data.Migrations
                 {
                     b.HasOne("MVCinicial.Models.Cargo", "Cargo")
                         .WithMany()
-                        .HasForeignKey("IdCargo")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdCargo");
 
                     b.Navigation("Cargo");
                 });

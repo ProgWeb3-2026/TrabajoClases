@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCinicial.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260912012553_Cargo")]
+    [Migration("20260916001032_Cargo")]
     partial class Cargo
     {
         /// <inheritdoc />
@@ -78,7 +78,7 @@ namespace MVCinicial.Data.Migrations
                     b.Property<DateTime>("FechaNacimiento")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdCargo")
+                    b.Property<int?>("IdCargo")
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")
@@ -306,9 +306,7 @@ namespace MVCinicial.Data.Migrations
                 {
                     b.HasOne("MVCinicial.Models.Cargo", "Cargo")
                         .WithMany()
-                        .HasForeignKey("IdCargo")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdCargo");
 
                     b.Navigation("Cargo");
                 });

@@ -14,8 +14,7 @@ namespace MVCinicial.Data.Migrations
                 name: "IdCargo",
                 table: "Empleado",
                 type: "int",
-                nullable: false,
-                defaultValue: 0);
+                nullable: true);
 
             migrationBuilder.CreateTable(
                 name: "Cargo",
@@ -40,8 +39,7 @@ namespace MVCinicial.Data.Migrations
                 table: "Empleado",
                 column: "IdCargo",
                 principalTable: "Cargo",
-                principalColumn: "IdCargo",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "IdCargo");
         }
 
         /// <inheritdoc />

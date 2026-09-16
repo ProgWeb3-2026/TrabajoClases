@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MVCinicial.Models;
 using MVCinicial.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 public class EmpleadosController : Controller
 {
@@ -16,7 +17,8 @@ public class EmpleadosController : Controller
     // GET: EMPLEADOS
     public async Task<IActionResult> Index()    
     {
-        return View(await _context.Empleado.ToListAsync());
+        var cargos = await _context.Empleado.Include("Cargo").ToListAsync();
+        return View(cargos);
     }
 
     // GET: EMPLEADOS/Details/5
@@ -40,6 +42,10 @@ public class EmpleadosController : Controller
     // GET: EMPLEADOS/Create
     public IActionResult Create()
     {
+        //cargar los cargos
+        var cargos = _context.Cargo.ToList().Select(x=>new SelectListItem(x.Nombre, x.IdCargo.ToString()));
+        ViewData["Cargos"] = cargos;
+
         return View();
     }
 
@@ -48,7 +54,7 @@ public class EmpleadosController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("IdEmpleau,Nombre,Apellido,Sueldo,CorreoElectronico,Password,FechaNacimiento")] Empleado empleado)
+    public async Task<IActionResult> Create([Bind("IdEmpleau,Nombre,Apellido,Sueldo,CorreoElectronico,Password,FechaNacimiento,IdCargo,Cargo")] Empleado empleado)
     {
         if (ModelState.IsValid)
         {
