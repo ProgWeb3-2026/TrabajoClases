@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using MVC.Data;
 using MVCinicial.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,12 +12,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
+
+await app.InitializeData();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

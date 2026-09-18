@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MVCinicial.Models;
 using MVCinicial.Data;
+using MVCinicial.ViewModels;
 
 public class ContactosController : Controller
 {
@@ -16,7 +17,20 @@ public class ContactosController : Controller
     // GET: CONTACTOS
     public async Task<IActionResult> Index()    
     {
-        return View(await _context.Contacto.ToListAsync());
+        var contactoModel = await _context.Contacto.ToListAsync();
+        //debemos mapear o convertir los modelos a view models
+        List<ContactoViewModel> viewModels = new List<ContactoViewModel>();
+        
+        foreach (var model in contactoModel)
+        {
+            ContactoViewModel viewModel = new ContactoViewModel();
+            viewModel.Id = model.Id;
+            viewModel.Nombre = model.Nombre;
+
+            viewModels.Add(viewModel);
+        }
+
+        return View(viewModels);
     }
 
     // GET: CONTACTOS/Details/5
@@ -141,6 +155,21 @@ public class ContactosController : Controller
 
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
+    }
+
+    public async Task<IActionResult> ContactoUnivalle()
+    {
+        return View("Univalle");
+    }
+
+    public async Task<IActionResult> ContactoModel()
+    {
+        var contactoEjemplo = new Contacto
+        {
+            Id = 1,
+            Nombre = "Perico de los palotes"
+        };
+        return View(contactoEjemplo);
     }
 
     private bool ContactoExists(int? id)

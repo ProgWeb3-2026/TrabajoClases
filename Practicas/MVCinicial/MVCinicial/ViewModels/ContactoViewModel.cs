@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MVCinicial.Models
+namespace MVCinicial.ViewModels
 {
-    public class Contacto
+    public class ContactoViewModel
     {
-        [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Display(Name = "Nombre Contacto")]
+        [Required(ErrorMessage = "El Nombre es requerido")]
         [StringLength(50)]
         public string Nombre { get; set; }
     }
